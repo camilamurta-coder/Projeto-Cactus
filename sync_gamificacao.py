@@ -38,13 +38,13 @@ SEMANA_ATUAL = 1
 
 
 def atualizar_semana_acesso(gc, alunos: list[dict], semana: int) -> None:
-    """Escreve, por municipio, a contagem de estudantes engajados (pontos > 0)
-    na coluna 'S{semana} Acessos' da aba Acesso. Nao mexe em 'Acesso
-    registrado' nem em nenhuma outra coluna com formula."""
+    """Escreve, por municipio, o total de estudantes inscritos (soma das duas
+    turmas - 6o/7o e 8o/9o - de cada cidade, independente de pontuacao) na
+    coluna 'S{semana} Acessos' da aba Acesso. Nao mexe em 'Acesso registrado'
+    nem em nenhuma outra coluna com formula."""
     contagem = {}
     for a in alunos:
-        if a["pontos"] > 0:
-            contagem[a["municipio_norm"]] = contagem.get(a["municipio_norm"], 0) + 1
+        contagem[a["municipio_norm"]] = contagem.get(a["municipio_norm"], 0) + 1
 
     sh = gc.open_by_key(GOOGLE_SHEET_ID)
     ws = sh.worksheet(ABA_ACESSO)
