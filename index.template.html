@@ -1,7 +1,6 @@
 <title>Painel Cactus — Jornada rumo à medalha</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
   :root {
     color-scheme: light;
@@ -150,36 +149,16 @@
   .theme-toggle { font-size: 0.75rem; color: var(--text-secondary);
                   background: var(--surface-1); border: 1px solid var(--border); border-radius: 999px; padding: 5px 12px; cursor: pointer; }
 
-  /* login overlay */
-  #login-overlay {
-    position: fixed; inset: 0; background: var(--page-plane); z-index: 100;
-    display: flex; align-items: center; justify-content: center; padding: 20px;
-  }
-  #login-overlay.hidden { display: none; }
-  .login-card {
-    background: var(--surface-1); border: 1px solid var(--border); border-radius: 14px;
-    padding: 32px 28px; max-width: 360px; width: 100%; text-align: center;
-  }
-  .login-card h1 { font-size: 1.15rem; margin: 0 0 6px; }
-  .login-card p { font-size: 0.85rem; color: var(--text-secondary); margin: 0 0 20px; }
-  #google-signin-button { display: flex; justify-content: center; min-height: 40px; }
-  .login-error { color: var(--status-critical); font-size: 0.8rem; margin-top: 14px; display: none; }
-  .login-error.show { display: block; }
-  .login-setup-note { font-size: 0.78rem; color: var(--text-muted); background: var(--gridline);
-                       border-radius: 8px; padding: 10px 12px; text-align: left; }
-
-  #app.hidden { display: none; }
+  /* filter chips */
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .chip { font: inherit; font-size: 0.78rem; color: var(--text-secondary); background: var(--surface-1);
+          border: 1px solid var(--border); border-radius: 999px; padding: 6px 12px; cursor: pointer;
+          display: inline-flex; align-items: center; gap: 6px; }
+  .chip .count { background: var(--gridline); border-radius: 999px; padding: 0 6px; font-size: 0.72rem; }
+  .chip:hover { color: var(--text-primary); }
+  .chip.active { background: var(--series-1); border-color: var(--series-1); color: #fff; }
+  .chip.active .count { background: rgba(255,255,255,0.25); color: #fff; }
 </style>
-
-<div id="login-overlay">
-  <div class="login-card">
-    <h1>Painel Cactus</h1>
-    <p>Acesso restrito à equipe — entre com seu e-mail @associacaocactus.com.br.</p>
-    <div id="google-signin-button"></div>
-    <div class="login-setup-note" id="login-setup-note" style="display:none;"></div>
-    <div class="login-error" id="login-error">Este e-mail não pertence ao domínio associacaocactus.com.br. Tente novamente com sua conta Cactus.</div>
-  </div>
-</div>
 
 <div class="wrap" id="app">
   <header class="page-head">
@@ -189,7 +168,6 @@
       <div class="gen" id="gerado"></div>
     </div>
     <div class="head-actions">
-      <div class="user-chip" id="user-chip"></div>
       <button class="theme-toggle" id="theme-toggle">Modo escuro</button>
     </div>
   </header>
@@ -234,6 +212,7 @@
     <section id="sec-municipios">
       <h2>Municípios da Jornada</h2>
       <p class="desc">Clique no cabeçalho de uma coluna para ordenar. Farol calculado automaticamente pela planilha.</p>
+      <div class="chips" id="municipios-chips"></div>
       <div class="card table-scroll">
         <table id="tbl-municipios"></table>
       </div>
@@ -276,14 +255,6 @@
 
 <script type="application/json" id="dashboard-data">__DASHBOARD_DATA__</script>
 <script>
-// ------------------------------------------------------------------ //
-// CONFIGURACAO DE LOGIN (preencher depois de criar o OAuth Client ID
-// no Google Cloud Console - ver README.md, secao "Login por dominio")
-// ------------------------------------------------------------------ //
-const GOOGLE_CLIENT_ID = "";               // ex: "123456-abc.apps.googleusercontent.com"
-const ALLOWED_DOMAIN = "associacaocactus.com.br";
-const SESSION_HOURS = 12;
-
 const DATA = JSON.parse(document.getElementById('dashboard-data').textContent);
 
 const fmtPct = (v) => (v == null ? "—" : (v * 100).toLocaleString('pt-BR', {maximumFractionDigits: 1}) + "%");
@@ -317,86 +288,6 @@ function prioridadeBadge(p) {
   const [cls, label] = map[p] || ['muted', p || '—'];
   return `<span class="badge ${cls}"><span class="dot"></span>${label}</span>`;
 }
-
-// ================================================================== //
-// LOGIN (Google Identity Services, restrito ao dominio ALLOWED_DOMAIN)
-// ================================================================== //
-(function () {
-  const overlay = document.getElementById('login-overlay');
-  const app = document.getElementById('app');
-  const errorBox = document.getElementById('login-error');
-  const setupNote = document.getElementById('login-setup-note');
-  const userChip = document.getElementById('user-chip');
-  const STORAGE_KEY = 'painel-cactus-sessao';
-
-  function decodeJwt(token) {
-    const payload = token.split('.')[1];
-    const base64 = payload.replace(/-/g, '+').replace(/_/g, '/');
-    const json = decodeURIComponent(
-      atob(base64).split('').map(c => '%' + c.charCodeAt(0).toString(16).padStart(2, '0')).join('')
-    );
-    return JSON.parse(json);
-  }
-
-  function grantAccess(email) {
-    overlay.classList.add('hidden');
-    app.classList.remove('hidden');
-    userChip.innerHTML = `${email} <button id="logout-btn">sair</button>`;
-    document.getElementById('logout-btn').addEventListener('click', () => {
-      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
-      location.reload();
-    });
-  }
-
-  function handleCredentialResponse(response) {
-    let claims;
-    try { claims = decodeJwt(response.credential); } catch (e) { return; }
-    const email = claims.email || '';
-    const valid = claims.email_verified && email.toLowerCase().endsWith('@' + ALLOWED_DOMAIN);
-    if (!valid) {
-      errorBox.classList.add('show');
-      return;
-    }
-    errorBox.classList.remove('show');
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({
-        email, exp: Date.now() + SESSION_HOURS * 3600 * 1000,
-      }));
-    } catch (e) {}
-    grantAccess(email);
-  }
-
-  // sessao ja valida salva localmente?
-  try {
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
-    if (saved && saved.exp > Date.now()) {
-      grantAccess(saved.email);
-      return;
-    }
-  } catch (e) {}
-
-  if (!GOOGLE_CLIENT_ID) {
-    setupNote.style.display = 'block';
-    setupNote.textContent = 'Login ainda não configurado: falta adicionar o GOOGLE_CLIENT_ID em index.template.html (veja o README).';
-    return;
-  }
-
-  function iniciar() {
-    if (!window.google || !google.accounts || !google.accounts.id) {
-      setTimeout(iniciar, 200);
-      return;
-    }
-    google.accounts.id.initialize({
-      client_id: GOOGLE_CLIENT_ID,
-      callback: handleCredentialResponse,
-      hd: ALLOWED_DOMAIN,
-    });
-    google.accounts.id.renderButton(document.getElementById('google-signin-button'), {
-      theme: 'outline', size: 'large', text: 'signin_with', shape: 'pill',
-    });
-  }
-  iniciar();
-})();
 
 // ---------- header ----------
 document.getElementById('titulo').textContent = DATA.painel.titulo;
@@ -599,10 +490,34 @@ document.getElementById('gerado').textContent =
     { key: 'prioridade', label: 'Prioridade', type: 'badge-prio' },
     { key: 'farol', label: 'Farol', type: 'badge-farol' },
   ];
-  let rows = DATA.municipios_acesso.slice();
+  const todasLinhas = DATA.municipios_acesso.slice();
   let sortKey = 'municipio', sortAsc = true;
+  let filtroAtivo = 'todos';
+
+  const filtros = [
+    { chave: 'todos', label: 'Todos', teste: () => true },
+    { chave: 'prioridade-alta', label: 'Prioridade Alta', teste: m => m.prioridade === 'Alta' },
+    { chave: 'farol-risco', label: 'Farol Risco', teste: m => m.farol === 'Risco' },
+    { chave: 'farol-aguardando', label: 'Farol Aguardando', teste: m => m.farol === 'Aguardando' },
+    { chave: 'farol-saudavel', label: 'Farol Saudável', teste: m => m.farol === 'Saudável' },
+  ];
+
+  function renderChips() {
+    const host = document.getElementById('municipios-chips');
+    host.innerHTML = '';
+    filtros.forEach(f => {
+      const n = todasLinhas.filter(f.teste).length;
+      const chip = el('button', `chip${filtroAtivo === f.chave ? ' active' : ''}`,
+        `${f.label} <span class="count">${n}</span>`);
+      chip.addEventListener('click', () => { filtroAtivo = f.chave; render(); });
+      host.appendChild(chip);
+    });
+  }
 
   function render() {
+    renderChips();
+    const ativo = filtros.find(f => f.chave === filtroAtivo);
+    let rows = todasLinhas.filter(ativo.teste);
     rows.sort((a, b) => {
       let x = a[sortKey], y = b[sortKey];
       if (x == null) x = sortAsc ? Infinity : -Infinity;
