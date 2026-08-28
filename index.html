@@ -4,16 +4,18 @@
 <style>
   :root {
     color-scheme: light;
-    --surface-1:      #fcfcfb;
-    --page-plane:     #f9f9f7;
+    --surface-1:      #ffffff;
+    --page-plane:     #fafafa;
     --text-primary:   #0b0b0b;
     --text-secondary: #52514e;
     --text-muted:     #898781;
-    --gridline:       #e1e0d9;
+    --gridline:       #ececec;
     --baseline:       #c3c2b7;
-    --border:         rgba(11,11,11,0.10);
-    --series-1:       #2a78d6; /* blue */
-    --series-2:       #eb6834; /* orange */
+    --border:         rgba(11,11,11,0.08);
+    /* identidade visual Turmas Olimpicas */
+    --series-1:       #2E8B47; /* verde */
+    --series-2:       #F5A623; /* laranja */
+    --brand-red:      #E5484D;
     --status-good:      #0ca30c;
     --status-warning:   #fab219;
     --status-serious:   #ec835a;
@@ -31,8 +33,9 @@
       --gridline:       #2c2c2a;
       --baseline:       #383835;
       --border:         rgba(255,255,255,0.10);
-      --series-1:       #3987e5;
-      --series-2:       #d95926;
+      --series-1:       #45B369;
+      --series-2:       #F5A623;
+      --brand-red:      #E5484D;
     }
   }
   :root[data-theme="dark"] {
@@ -45,8 +48,9 @@
     --gridline:       #2c2c2a;
     --baseline:       #383835;
     --border:         rgba(255,255,255,0.10);
-    --series-1:       #3987e5;
-    --series-2:       #d95926;
+    --series-1:       #45B369;
+    --series-2:       #F5A623;
+    --brand-red:      #E5484D;
   }
 
   * { box-sizing: border-box; }
@@ -57,7 +61,11 @@
   body { padding: 24px 16px 64px; }
   .wrap { max-width: 1180px; margin: 0 auto; }
 
+  .brand-strip { height: 4px; border-radius: 999px; margin-bottom: 18px;
+                 background: linear-gradient(90deg, var(--series-1) 0 33%, var(--series-2) 33% 66%, var(--brand-red) 66% 100%); }
   header.page-head { margin-bottom: 8px; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+  header.page-head .head-title { display: flex; align-items: center; gap: 12px; }
+  #logo-img { height: 40px; width: auto; display: none; }
   header.page-head h1 { font-size: 1.5rem; margin: 0 0 4px; }
   header.page-head .sub { color: var(--text-secondary); font-size: 0.9rem; }
   header.page-head .gen { color: var(--text-muted); font-size: 0.78rem; margin-top: 6px; }
@@ -175,15 +183,20 @@
 
 <div class="wrap" id="app">
   <header class="page-head">
-    <div>
-      <h1 id="titulo"></h1>
-      <div class="sub" id="subtitulo"></div>
-      <div class="gen" id="gerado"></div>
+    <div class="head-title">
+      <img id="logo-img" alt="Logo do projeto">
+      <div>
+        <h1 id="titulo"></h1>
+        <div class="sub" id="subtitulo"></div>
+        <div class="gen" id="gerado"></div>
+      </div>
     </div>
     <div class="head-actions">
       <button class="theme-toggle" id="theme-toggle">Modo escuro</button>
     </div>
   </header>
+
+  <div class="brand-strip"></div>
 
   <nav class="tabbar" id="tabbar"></nav>
 
@@ -297,6 +310,10 @@ const LINKS_TRILHA = [
   { label: 'Ambiente do Admin', url: '' },
 ];
 
+// Logo do projeto - cole aqui um data URI (data:image/png;base64,...)
+// gerado a partir do arquivo de imagem real (ver README).
+const LOGO_DATA_URI = '';
+
 const DATA = JSON.parse(document.getElementById('dashboard-data').textContent);
 
 const fmtPct = (v) => (v == null ? "—" : (v * 100).toLocaleString('pt-BR', {maximumFractionDigits: 1}) + "%");
@@ -329,6 +346,13 @@ function prioridadeBadge(p) {
   const map = { 'Alta': ['critical', 'Alta'], 'Média': ['warning', 'Média'], 'Ok': ['good', 'Ok'] };
   const [cls, label] = map[p] || ['muted', p || '—'];
   return `<span class="badge ${cls}"><span class="dot"></span>${label}</span>`;
+}
+
+// ---------- logo ----------
+if (LOGO_DATA_URI) {
+  const img = document.getElementById('logo-img');
+  img.src = LOGO_DATA_URI;
+  img.style.display = 'block';
 }
 
 // ---------- header ----------
