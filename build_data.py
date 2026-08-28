@@ -4,17 +4,21 @@
 Gera os dados do painel "Jornada rumo a medalha" a partir de:
   - planilha de gestao (abas Painel / Checklist / Acesso)
   - export de gamificacao (CSV por aluno)
+  - export da pesquisa "Minha Jornada Olimpica" (CSV por aluno, opcional)
 
 Saidas:
-  - data.json                          -> dados AGREGADOS (publico, vai pro site)
-  - interno/gamificacao_detalhado.csv  -> lista por aluno, com nome (uso interno,
-                                           NUNCA commitar / publicar - ver .gitignore)
+  - data.json                         -> dados AGREGADOS (publico, vai pro site)
+  - interno/gamificacao_detalhado.csv -> lista por aluno, com nome (uso interno,
+                                          NUNCA commitar / publicar - ver .gitignore)
+  - interno/pesquisa_detalhado.csv    -> lista por aluno da pesquisa, com nome,
+                                          e-mail e comentarios (uso interno, idem)
 
 Uso:
-    python build_data.py [caminho_xlsx] [caminho_csv_gamificacao]
+    python build_data.py [caminho_xlsx] [caminho_csv_gamificacao] [caminho_csv_pesquisa]
 
 Se os caminhos nao forem passados, usa os arquivos mais recentes enviados
-(constantes abaixo) como padrao.
+(constantes abaixo) como padrao. O CSV de pesquisa e opcional - se o arquivo
+nao existir, a secao "Pesquisa MJO" do painel fica vazia sem quebrar o resto.
 """
 
 from __future__ import annotations
@@ -34,7 +38,8 @@ import requests
 # passar um caminho de arquivo local no lugar, veja main().
 GOOGLE_SHEET_ID = "1f2X3vCxcBAcR9cQTlIRxhXITVnS3xlwHBpyo9qlxrxQ"
 XLSX_PADRAO = f"https://docs.google.com/spreadsheets/d/{GOOGLE_SHEET_ID}/export?format=xlsx"
-CSV_PADRAO = r"C:\Users\Camila\Downloads\gamificacao (3).csv"
+CSV_PADRAO = r"C:\Users\Camila\Downloads\gamificacao (4).csv"
+CSV_PESQUISA_PADRAO = r"C:\Users\Camila\Downloads\pesquisa.csv"
 
 AQUI = Path(__file__).parent
 INTERNO = AQUI / "interno"
@@ -339,12 +344,101 @@ def agregar_gamificacao(alunos: list[dict], municipios_jornada: list[str]) -> di
 
 
 # --------------------------------------------------------------------------- #
+# PESQUISA (Minha Jornada Olimpica - formulario final)
+# --------------------------------------------------------------------------- #
+
+def nota_recomendacao_numerica(faixa: str) -> float | None:
+    """Converte uma faixa tipo '9 a 10' no ponto medio (9.5). None se vazio."""
+    numeros = re.findall(r"\d+", faixa or "")
+    if len(numeros) != 2:
+        return None
+    a, b = int(numeros[0]), int(numeros[1])
+    return (a + b) / 2
+
+
+def ler_pesquisa(caminho: Path) -> list[dict]:
+    respostas = []
+    with open(caminho, encoding="utf-8-sig", errors="replace", newline="") as f:
+        leitor = csv.DictReader(f, delimiter=";")
+        for row in leitor:
+            turma = (row.get("Turma") or "").strip()
+            if " - " in turma:
+                nivel_turma, municipio = turma.split(" - ", 1)
+            else:
+                nivel_turma, municipio = turma, ""
+            faixa_nota = (row.get("De 0 a 10, o quanto você recomendaria essa trilha para um amigo?") or "").strip()
+            respostas.append({
+                "aluno": (row.get("Aluno") or "").strip(),
+                "email": (row.get("E-mail") or "").strip(),
+                "turma": turma,
+                "nivel_turma": nivel_turma.strip(),
+                "municipio": municipio.strip(),
+                "municipio_norm": norm(municipio),
+                "situacao": (row.get("Situação") or "").strip(),
+                "respondido_em": (row.get("Respondido em") or "").strip(),
+                "satisfacao": (row.get('Qual foi o seu grau de satisfação com a trilha "Minha Jornada Olímpica"?') or "").strip(),
+                "faixa_nota_recomendacao": faixa_nota.strip(),
+                "nota_recomendacao": nota_recomendacao_numerica(faixa_nota),
+                "comentario": (row.get(" Quer deixar uma mensagem para os organizadores da trilha? (comentário positivo, negativo, queremos te ouvir!)") or "").strip(),
+                "palavra_jornada": (row.get(" Qual palavra define melhor sua jornada até aqui?") or "").strip(),
+            })
+    return respostas
+
+
+def agregar_pesquisa(respostas: list[dict], municipios_jornada: list[str]) -> dict:
+    responderam = [r for r in respostas if norm(r["situacao"]) == "RESPONDEU"]
+    notas = [r["nota_recomendacao"] for r in responderam if r["nota_recomendacao"] is not None]
+
+    dist_satisfacao: dict[str, int] = {}
+    for r in responderam:
+        if r["satisfacao"]:
+            dist_satisfacao[r["satisfacao"]] = dist_satisfacao.get(r["satisfacao"], 0) + 1
+
+    por_municipio_ct: dict[str, dict] = {}
+    for r in responderam:
+        chave = r["municipio_norm"]
+        por_municipio_ct.setdefault(chave, {"nome_exibicao": r["municipio"], "respostas": 0, "notas": []})
+        por_municipio_ct[chave]["respostas"] += 1
+        if r["nota_recomendacao"] is not None:
+            por_municipio_ct[chave]["notas"].append(r["nota_recomendacao"])
+
+    lista_municipios = []
+    presentes = set()
+    for chave, dados in por_municipio_ct.items():
+        notas_m = dados["notas"]
+        lista_municipios.append({
+            "municipio": dados["nome_exibicao"],
+            "respostas": dados["respostas"],
+            "nota_media_recomendacao": round(sum(notas_m) / len(notas_m), 1) if notas_m else None,
+        })
+        presentes.add(chave)
+    for nome in municipios_jornada:
+        if norm(nome) not in presentes:
+            lista_municipios.append({"municipio": nome, "respostas": 0, "nota_media_recomendacao": None})
+
+    lista_municipios.sort(key=lambda r: norm(r["municipio"]))
+    lista_municipios.sort(key=lambda r: r["respostas"], reverse=True)
+
+    return {
+        "geral": {
+            "total_convidados": len(respostas),
+            "total_responderam": len(responderam),
+            "pct_resposta": round(len(responderam) / len(respostas), 4) if respostas else 0,
+            "nota_media_recomendacao": round(sum(notas) / len(notas), 1) if notas else None,
+            "distribuicao_satisfacao": dist_satisfacao,
+        },
+        "por_municipio": lista_municipios,
+    }
+
+
+# --------------------------------------------------------------------------- #
 # EXECUCAO
 # --------------------------------------------------------------------------- #
 
 def main() -> int:
     origem_xlsx = sys.argv[1] if len(sys.argv) > 1 else XLSX_PADRAO
     caminho_csv = Path(sys.argv[2]) if len(sys.argv) > 2 else Path(CSV_PADRAO)
+    caminho_pesquisa = Path(sys.argv[3]) if len(sys.argv) > 3 else Path(CSV_PESQUISA_PADRAO)
 
     try:
         caminho_xlsx = resolver_planilha(origem_xlsx)
@@ -369,15 +463,27 @@ def main() -> int:
         alunos, municipios_jornada=[m["municipio"] for m in municipios_acesso]
     )
 
+    respostas_pesquisa = []
+    pesquisa = None
+    if caminho_pesquisa.exists():
+        respostas_pesquisa = ler_pesquisa(caminho_pesquisa)
+        pesquisa = agregar_pesquisa(
+            respostas_pesquisa, municipios_jornada=[m["municipio"] for m in municipios_acesso]
+        )
+    else:
+        print(f"  (sem CSV de pesquisa em {caminho_pesquisa} - secao Pesquisa MJO fica vazia)")
+
     saida = {
         "gerado_em_arquivo": {
             "planilha": "Google Sheets (planilha de gestao)" if origem_xlsx.startswith("http") else caminho_xlsx.name,
             "csv_gamificacao": caminho_csv.name,
+            "csv_pesquisa": caminho_pesquisa.name if pesquisa else None,
         },
         "painel": painel,
         "checklist_itens": checklist_itens,
         "municipios_acesso": municipios_acesso,
         "gamificacao": gamificacao,
+        "pesquisa": pesquisa,
     }
 
     (AQUI / "data.json").write_text(
@@ -397,6 +503,20 @@ def main() -> int:
             w.writerow([a["municipio"], a["nivel_turma"], a["aluno"], a["nivel"],
                         a["pontos"], a["conquistas"]])
     print(f"lista interna (com nomes) gerada em {caminho_interno} - NAO sera publicada")
+
+    # lista interna da pesquisa (COM nome/e-mail/comentarios) - nunca vai pro site/git
+    if respostas_pesquisa:
+        caminho_pesquisa_interna = INTERNO / "pesquisa_detalhado.csv"
+        with open(caminho_pesquisa_interna, "w", encoding="utf-8-sig", newline="") as f:
+            w = csv.writer(f, delimiter=";")
+            w.writerow(["Municipio", "Turma", "Aluno", "Email", "Situacao", "Satisfacao",
+                        "Faixa_Nota_Recomendacao", "Palavra_Jornada", "Comentario"])
+            for r in sorted(respostas_pesquisa, key=lambda r: (r["municipio"], r["aluno"])):
+                w.writerow([r["municipio"], r["turma"], r["aluno"], r["email"], r["situacao"],
+                            r["satisfacao"], r["faixa_nota_recomendacao"], r["palavra_jornada"],
+                            r["comentario"]])
+        print(f"lista interna da pesquisa (com nome/e-mail/comentarios) gerada em "
+              f"{caminho_pesquisa_interna} - NAO sera publicada")
 
     # monta o index.html final embutindo os dados no template
     template = (AQUI / "index.template.html").read_text(encoding="utf-8")

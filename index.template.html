@@ -138,7 +138,7 @@
   td.num { text-align: right; font-variant-numeric: tabular-nums; }
   tr:hover td { background: color-mix(in srgb, var(--series-1) 6%, transparent); }
 
-  .rank-bar-row { display: grid; grid-template-columns: 170px 1fr 60px; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .rank-bar-row { display: grid; grid-template-columns: 170px 1fr 130px; align-items: center; gap: 10px; margin-bottom: 8px; }
   .rank-bar-row .name { font-size: 0.83rem; }
   .rank-bar-row .val { font-size: 0.78rem; text-align: right; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
 
@@ -252,14 +252,24 @@
       </div>
     </section>
 
+    <section id="sec-pesquisa-mjo">
+      <h2>Pesquisa MJO</h2>
+      <p class="desc">Formulário final da trilha "Minha Jornada Olímpica" — dados agregados, sem nome nem e-mail de estudante (respostas individuais e comentários ficam só na pasta interna).</p>
+      <div class="tiles" id="pesquisa-tiles" style="margin-bottom:18px;"></div>
+      <div class="card">
+        <h2 style="font-size:0.9rem;margin-bottom:12px;">Respostas por cidade</h2>
+        <div id="pesquisa-bars"></div>
+      </div>
+    </section>
+
     <section id="sec-consumo-conteudo">
       <h2>Consumo de conteúdo</h2>
       <p class="desc">Aguardando fonte de dados — ver observação abaixo.</p>
       <div class="placeholder-card" style="text-align:left;">
-        <p style="margin:0 0 10px;"><strong>Ainda não temos os dados para preencher este quadro.</strong> Estrutura prevista:</p>
+        <p style="margin:0 0 10px;"><strong>Ainda não temos os dados para preencher o restante deste quadro.</strong> Estrutura prevista:</p>
         <ul class="notes" style="margin:0 0 10px 18px;">
           <li><strong>Trilha da OBMEP</strong> — Exercícios, Prova extra</li>
-          <li><strong>Minha Jornada Olímpica</strong> — Pesquisa (Formulário final)</li>
+          <li><strong>Minha Jornada Olímpica</strong> — Pesquisa (Formulário final) ✅ ver seção acima</li>
           <li><strong>Simulados</strong> — participação, com alerta/notificação do próximo simulado</li>
         </ul>
         <p style="margin:0;">Assim que houver um export com esses dados, me envie que eu monto os cards.</p>
@@ -479,7 +489,7 @@ document.getElementById('gerado').textContent =
 
 // ---------- consultores (carteiras de atuacao) ----------
 const CARTEIRAS = {
-  Fernando: 'Cultura Olímpica e Anos Iniciais',
+  Fernando: 'Cultura Olímpica',
   Mariene: 'Implantação e Formalização',
   Erick: 'Empresas Madrinha e Personalizados',
 };
@@ -715,6 +725,45 @@ const CARTEIRAS = {
     host.appendChild(row);
   });
   host.appendChild(el('div', 'legend-row', `% de estudantes com pontuação &gt; 0, de ${rows.length} municípios da Jornada.`));
+})();
+
+// ---------- pesquisa MJO ----------
+(function () {
+  const sec = document.getElementById('sec-pesquisa-mjo');
+  if (!DATA.pesquisa) {
+    sec.querySelector('.desc').textContent = 'Ainda sem export da pesquisa — envie o CSV para esta seção ser preenchida.';
+    return;
+  }
+  const g = DATA.pesquisa.geral;
+  const tilesHost = document.getElementById('pesquisa-tiles');
+  const tiles = [
+    ['Estudantes que completaram', fmtNum(g.total_responderam), `de ${fmtNum(g.total_convidados)} convidados · ${fmtPct(g.pct_resposta)}`],
+    ['Nota de recomendação (0–10)', g.nota_media_recomendacao != null ? fmtNum1(g.nota_media_recomendacao) : '—', 'Média entre quem respondeu (faixas do formulário)'],
+  ];
+  tiles.forEach(([label, value, hint]) => {
+    const t = el('div', 'tile');
+    t.appendChild(el('div', 'label', label));
+    t.appendChild(el('div', 'value', value));
+    if (hint) t.appendChild(el('div', 'hint', hint));
+    tilesHost.appendChild(t);
+  });
+
+  const host = document.getElementById('pesquisa-bars');
+  const rows = DATA.pesquisa.por_municipio; // ja vem ordenado (mais respostas primeiro) do build_data.py
+  const max = Math.max(...rows.map(r => r.respostas), 1);
+  rows.forEach(r => {
+    const row = el('div', 'rank-bar-row');
+    row.appendChild(el('div', 'name', r.municipio));
+    const track = el('div', 'bar-track');
+    const fill = el('div', 'bar-fill');
+    fill.style.width = `${(r.respostas / max) * 100}%`;
+    track.appendChild(fill);
+    row.appendChild(track);
+    const notaTxt = r.nota_media_recomendacao != null ? ` · nota ${fmtNum1(r.nota_media_recomendacao)}` : '';
+    row.appendChild(el('div', 'val', `${fmtNum(r.respostas)}${notaTxt}`));
+    host.appendChild(row);
+  });
+  host.appendChild(el('div', 'legend-row', `Respostas por cidade, de ${rows.length} municípios da Jornada.`));
 })();
 
 // ---------- notas ----------

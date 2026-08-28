@@ -1,7 +1,8 @@
 {
   "gerado_em_arquivo": {
     "planilha": "Google Sheets (planilha de gestao)",
-    "csv_gamificacao": "gamificacao (3).csv"
+    "csv_gamificacao": "gamificacao (4).csv",
+    "csv_pesquisa": "pesquisa.csv"
   },
   "painel": {
     "titulo": "Jornada rumo à medalha — quadro de acompanhamento",
@@ -23,16 +24,16 @@
       {
         "bloco": "A. Ambiente LMS / Conteúdo",
         "entregaveis": 10,
-        "concluidos": 8,
-        "pct_concluido": 0.8,
-        "atrasados": 2
+        "concluidos": 9,
+        "pct_concluido": 0.9,
+        "atrasados": 1
       },
       {
         "bloco": "B. Comunicação",
         "entregaveis": 4,
-        "concluidos": 3,
-        "pct_concluido": 0.75,
-        "atrasados": 1
+        "concluidos": 4,
+        "pct_concluido": 1.0,
+        "atrasados": 0
       },
       {
         "bloco": "C. Ativação",
@@ -58,16 +59,16 @@
       {
         "bloco": "Total",
         "entregaveis": 30,
-        "concluidos": 13,
-        "pct_concluido": 0.4333333333,
-        "atrasados": 7
+        "concluidos": 15,
+        "pct_concluido": 0.5,
+        "atrasados": 5
       }
     ],
     "acessos_geral": {
       "meta_pct": 0.42,
       "estudantes_n1n2": 2392,
-      "acesso_registrado": 383,
-      "pct_alcancado": 0.1601170569,
+      "acesso_registrado": 396,
+      "pct_alcancado": 0.1655518395,
       "municipios_prioridade_alta": 10,
       "municipios_sem_consultor": 0,
       "escolas_municipais": 208,
@@ -87,8 +88,8 @@
         "municipios": 8,
         "estudantes_n1n2": 1152,
         "meta_acesso": 553.6,
-        "acesso_registrado": 321,
-        "atingimento_pct": 0.5798410405,
+        "acesso_registrado": 325,
+        "atingimento_pct": 0.587066474,
         "municipios_com_medalhista": 0,
         "municipios_sem_medalhista_f1": 3
       },
@@ -97,8 +98,8 @@
         "municipios": 4,
         "estudantes_n1n2": 554,
         "meta_acesso": 137.4,
-        "acesso_registrado": 30,
-        "atingimento_pct": 0.2183406114,
+        "acesso_registrado": 31,
+        "atingimento_pct": 0.2256186317,
         "municipios_com_medalhista": 0,
         "municipios_sem_medalhista_f1": 2
       },
@@ -107,8 +108,8 @@
         "municipios": 7,
         "estudantes_n1n2": 686,
         "meta_acesso": 309.9,
-        "acesso_registrado": 30,
-        "atingimento_pct": 0.0968054211,
+        "acesso_registrado": 38,
+        "atingimento_pct": 0.1226202001,
         "municipios_com_medalhista": 0,
         "municipios_sem_medalhista_f1": 5
       },
@@ -117,8 +118,8 @@
         "municipios": 19,
         "estudantes_n1n2": 2392,
         "meta_acesso": 1000.9,
-        "acesso_registrado": 381,
-        "atingimento_pct": 0.3806574083,
+        "acesso_registrado": 394,
+        "atingimento_pct": 0.3936457189,
         "municipios_com_medalhista": 0,
         "municipios_sem_medalhista_f1": 10
       },
@@ -226,10 +227,10 @@
       "pronto_quando": "Testada e executável",
       "responsavel": "Mari",
       "prazo": "2026-08-24",
-      "status": "Em andamento",
+      "status": "Concluído",
       "data_conclusao": "2026-08-28",
       "observacoes": "Incluir formulário do Arco Instituto.",
-      "atrasado": true
+      "atrasado": false
     },
     {
       "id": 9,
@@ -334,10 +335,10 @@
       "pronto_quando": "Lista indica quem respondeu e quem não respondeu nos 19 municípios",
       "responsavel": "Cams",
       "prazo": "2026-08-25",
-      "status": "Não iniciado",
+      "status": "Concluído",
       "data_conclusao": null,
       "observacoes": null,
-      "atrasado": true
+      "atrasado": false
     },
     {
       "id": 18,
@@ -524,8 +525,8 @@
       "escolas_municipais": 29,
       "meta_pct": 0.7,
       "meta_acesso_abs": 184.1,
-      "acesso_registrado": 224,
-      "pct_acesso": 0.8517110266,
+      "acesso_registrado": 228,
+      "pct_acesso": 0.8669201521,
       "medalhistas_f1": 7,
       "meta_medalhistas_f2": 1,
       "medalhistas_f2_realizado": 0,
@@ -562,8 +563,8 @@
       "escolas_municipais": 7,
       "meta_pct": 0.35,
       "meta_acesso_abs": 44.1,
-      "acesso_registrado": 17,
-      "pct_acesso": 0.1349206349,
+      "acesso_registrado": 18,
+      "pct_acesso": 0.1428571429,
       "medalhistas_f1": 1,
       "meta_medalhistas_f2": 1,
       "medalhistas_f2_realizado": 0,
@@ -619,8 +620,8 @@
       "escolas_municipais": 5,
       "meta_pct": 0.5,
       "meta_acesso_abs": 22.5,
-      "acesso_registrado": 15,
-      "pct_acesso": 0.3333333333,
+      "acesso_registrado": 19,
+      "pct_acesso": 0.4222222222,
       "medalhistas_f1": 0,
       "meta_medalhistas_f2": 1,
       "medalhistas_f2_realizado": 0,
@@ -695,8 +696,8 @@
       "escolas_municipais": 21,
       "meta_pct": 0.7,
       "meta_acesso_abs": 198.1,
-      "acesso_registrado": 4,
-      "pct_acesso": 0.01413427562,
+      "acesso_registrado": 8,
+      "pct_acesso": 0.02826855124,
       "medalhistas_f1": 1,
       "meta_medalhistas_f2": 1,
       "medalhistas_f2_realizado": 0,
@@ -880,13 +881,13 @@
   ],
   "gamificacao": {
     "geral": {
-      "total_alunos": 383,
-      "alunos_engajados": 103,
-      "pct_engajados": 0.2689,
-      "pontos_totais": 12644,
-      "pontos_medio_engajados": 122.8,
-      "nivel_medio": 0.49,
-      "conquistas_totais": 123,
+      "total_alunos": 396,
+      "alunos_engajados": 110,
+      "pct_engajados": 0.2778,
+      "pontos_totais": 14208,
+      "pontos_medio_engajados": 129.2,
+      "nivel_medio": 0.51,
+      "conquistas_totais": 134,
       "maior_pontuacao": 857,
       "municipios_com_inscritos": 13,
       "municipios_com_ativos": 10,
@@ -894,56 +895,122 @@
     },
     "por_municipio": [
       {
-        "total_alunos": 224,
-        "alunos_engajados": 74,
-        "pct_engajados": 0.3304,
-        "pontos_totais": 9813,
-        "pontos_medio_engajados": 132.6,
-        "nivel_medio": 0.62,
-        "conquistas_totais": 88,
+        "total_alunos": 19,
+        "alunos_engajados": 7,
+        "pct_engajados": 0.3684,
+        "pontos_totais": 482,
+        "pontos_medio_engajados": 68.9,
+        "nivel_medio": 0.63,
+        "conquistas_totais": 10,
+        "maior_pontuacao": 100,
+        "municipio": "CAPISTRANO",
+        "por_nivel_turma": {
+          "6º E 7º": {
+            "total_alunos": 10,
+            "alunos_engajados": 6,
+            "pct_engajados": 0.6,
+            "pontos_totais": 402,
+            "pontos_medio_engajados": 67.0,
+            "nivel_medio": 1.0,
+            "conquistas_totais": 8,
+            "maior_pontuacao": 100
+          },
+          "8º E 9º": {
+            "total_alunos": 9,
+            "alunos_engajados": 1,
+            "pct_engajados": 0.1111,
+            "pontos_totais": 80,
+            "pontos_medio_engajados": 80.0,
+            "nivel_medio": 0.22,
+            "conquistas_totais": 2,
+            "maior_pontuacao": 80
+          }
+        }
+      },
+      {
+        "total_alunos": 228,
+        "alunos_engajados": 75,
+        "pct_engajados": 0.3289,
+        "pontos_totais": 10974,
+        "pontos_medio_engajados": 146.3,
+        "nivel_medio": 0.64,
+        "conquistas_totais": 91,
         "maior_pontuacao": 857,
         "municipio": "ACARAÚ",
         "por_nivel_turma": {
           "6º E 7º": {
-            "total_alunos": 125,
-            "alunos_engajados": 43,
-            "pct_engajados": 0.344,
-            "pontos_totais": 6389,
-            "pontos_medio_engajados": 148.6,
-            "nivel_medio": 0.66,
-            "conquistas_totais": 49,
+            "total_alunos": 129,
+            "alunos_engajados": 44,
+            "pct_engajados": 0.3411,
+            "pontos_totais": 7220,
+            "pontos_medio_engajados": 164.1,
+            "nivel_medio": 0.68,
+            "conquistas_totais": 51,
             "maior_pontuacao": 857
           },
           "8º E 9º": {
             "total_alunos": 99,
             "alunos_engajados": 31,
             "pct_engajados": 0.3131,
-            "pontos_totais": 3424,
-            "pontos_medio_engajados": 110.5,
-            "nivel_medio": 0.57,
-            "conquistas_totais": 39,
+            "pontos_totais": 3754,
+            "pontos_medio_engajados": 121.1,
+            "nivel_medio": 0.59,
+            "conquistas_totais": 40,
             "maior_pontuacao": 753
           }
         }
       },
       {
-        "total_alunos": 17,
+        "total_alunos": 7,
+        "alunos_engajados": 2,
+        "pct_engajados": 0.2857,
+        "pontos_totais": 73,
+        "pontos_medio_engajados": 36.5,
+        "nivel_medio": 0.29,
+        "conquistas_totais": 2,
+        "maior_pontuacao": 53,
+        "municipio": "UBAJARA",
+        "por_nivel_turma": {
+          "6º E 7º": {
+            "total_alunos": 2,
+            "alunos_engajados": 1,
+            "pct_engajados": 0.5,
+            "pontos_totais": 53,
+            "pontos_medio_engajados": 53.0,
+            "nivel_medio": 0.5,
+            "conquistas_totais": 1,
+            "maior_pontuacao": 53
+          },
+          "8º E 9º": {
+            "total_alunos": 5,
+            "alunos_engajados": 1,
+            "pct_engajados": 0.2,
+            "pontos_totais": 20,
+            "pontos_medio_engajados": 20.0,
+            "nivel_medio": 0.2,
+            "conquistas_totais": 1,
+            "maior_pontuacao": 20
+          }
+        }
+      },
+      {
+        "total_alunos": 18,
         "alunos_engajados": 5,
-        "pct_engajados": 0.2941,
-        "pontos_totais": 170,
-        "pontos_medio_engajados": 34.0,
-        "nivel_medio": 0.35,
+        "pct_engajados": 0.2778,
+        "pontos_totais": 190,
+        "pontos_medio_engajados": 38.0,
+        "nivel_medio": 0.33,
         "conquistas_totais": 5,
         "maior_pontuacao": 70,
         "municipio": "ARACRUZ",
         "por_nivel_turma": {
           "6º E 7º": {
-            "total_alunos": 8,
+            "total_alunos": 9,
             "alunos_engajados": 2,
-            "pct_engajados": 0.25,
-            "pontos_totais": 40,
-            "pontos_medio_engajados": 20.0,
-            "nivel_medio": 0.25,
+            "pct_engajados": 0.2222,
+            "pontos_totais": 60,
+            "pontos_medio_engajados": 30.0,
+            "nivel_medio": 0.22,
             "conquistas_totais": 2,
             "maior_pontuacao": 30
           },
@@ -993,61 +1060,28 @@
         }
       },
       {
-        "total_alunos": 4,
-        "alunos_engajados": 1,
+        "total_alunos": 8,
+        "alunos_engajados": 2,
         "pct_engajados": 0.25,
-        "pontos_totais": 10,
+        "pontos_totais": 20,
         "pontos_medio_engajados": 10.0,
         "nivel_medio": 0.25,
-        "conquistas_totais": 1,
+        "conquistas_totais": 2,
         "maior_pontuacao": 10,
         "municipio": "MARANGUAPE",
         "por_nivel_turma": {
           "6º E 7º": {
-            "total_alunos": 2,
-            "alunos_engajados": 1,
-            "pct_engajados": 0.5,
-            "pontos_totais": 10,
+            "total_alunos": 5,
+            "alunos_engajados": 2,
+            "pct_engajados": 0.4,
+            "pontos_totais": 20,
             "pontos_medio_engajados": 10.0,
-            "nivel_medio": 0.5,
-            "conquistas_totais": 1,
+            "nivel_medio": 0.4,
+            "conquistas_totais": 2,
             "maior_pontuacao": 10
           },
           "8º E 9º": {
-            "total_alunos": 2,
-            "alunos_engajados": 0,
-            "pct_engajados": 0.0,
-            "pontos_totais": 0,
-            "pontos_medio_engajados": 0,
-            "nivel_medio": 0.0,
-            "conquistas_totais": 0,
-            "maior_pontuacao": 0
-          }
-        }
-      },
-      {
-        "total_alunos": 15,
-        "alunos_engajados": 3,
-        "pct_engajados": 0.2,
-        "pontos_totais": 162,
-        "pontos_medio_engajados": 54.0,
-        "nivel_medio": 0.27,
-        "conquistas_totais": 3,
-        "maior_pontuacao": 100,
-        "municipio": "CAPISTRANO",
-        "por_nivel_turma": {
-          "6º E 7º": {
-            "total_alunos": 7,
-            "alunos_engajados": 3,
-            "pct_engajados": 0.4286,
-            "pontos_totais": 162,
-            "pontos_medio_engajados": 54.0,
-            "nivel_medio": 0.57,
-            "conquistas_totais": 3,
-            "maior_pontuacao": 100
-          },
-          "8º E 9º": {
-            "total_alunos": 8,
+            "total_alunos": 3,
             "alunos_engajados": 0,
             "pct_engajados": 0.0,
             "pontos_totais": 0,
@@ -1121,39 +1155,6 @@
             "nivel_medio": 0.25,
             "conquistas_totais": 2,
             "maior_pontuacao": 40
-          }
-        }
-      },
-      {
-        "total_alunos": 7,
-        "alunos_engajados": 1,
-        "pct_engajados": 0.1429,
-        "pontos_totais": 20,
-        "pontos_medio_engajados": 20.0,
-        "nivel_medio": 0.29,
-        "conquistas_totais": 2,
-        "maior_pontuacao": 20,
-        "municipio": "UBAJARA",
-        "por_nivel_turma": {
-          "6º E 7º": {
-            "total_alunos": 2,
-            "alunos_engajados": 0,
-            "pct_engajados": 0.0,
-            "pontos_totais": 0,
-            "pontos_medio_engajados": 0,
-            "nivel_medio": 0.5,
-            "conquistas_totais": 1,
-            "maior_pontuacao": 0
-          },
-          "8º E 9º": {
-            "total_alunos": 5,
-            "alunos_engajados": 1,
-            "pct_engajados": 0.2,
-            "pontos_totais": 20,
-            "pontos_medio_engajados": 20.0,
-            "nivel_medio": 0.2,
-            "conquistas_totais": 1,
-            "maior_pontuacao": 20
           }
         }
       },
@@ -1402,6 +1403,122 @@
         "municipio": "Vargem Grande",
         "por_nivel_turma": {},
         "sem_inscritos": true
+      }
+    ]
+  },
+  "pesquisa": {
+    "geral": {
+      "total_convidados": 407,
+      "total_responderam": 23,
+      "pct_resposta": 0.0565,
+      "nota_media_recomendacao": 9.0,
+      "distribuicao_satisfacao": {
+        "(B) Satisfeito(a)": 11,
+        "(A) Muito satisfeito(a)": 10,
+        "(D) Insatisfeito (a)": 1,
+        "(E) Muito insatisfeito(a)": 1
+      }
+    },
+    "por_municipio": [
+      {
+        "municipio": "ACARAÚ",
+        "respostas": 16,
+        "nota_media_recomendacao": 9.0
+      },
+      {
+        "municipio": "BELA CRUZ",
+        "respostas": 2,
+        "nota_media_recomendacao": 9.5
+      },
+      {
+        "municipio": "IPOJUCA",
+        "respostas": 2,
+        "nota_media_recomendacao": 9.5
+      },
+      {
+        "municipio": "AÇAILÂNDIA",
+        "respostas": 1,
+        "nota_media_recomendacao": 7.5
+      },
+      {
+        "municipio": "ARACRUZ",
+        "respostas": 1,
+        "nota_media_recomendacao": 9.5
+      },
+      {
+        "municipio": "CAPISTRANO",
+        "respostas": 1,
+        "nota_media_recomendacao": 7.5
+      },
+      {
+        "municipio": "Alagoa Nova",
+        "respostas": 0,
+        "nota_media_recomendacao": null
+      },
+      {
+        "municipio": "Caldeirão Grande",
+        "respostas": 0,
+        "nota_media_recomendacao": null
+      },
+      {
+        "municipio": "Iguatu",
+        "respostas": 0,
+        "nota_media_recomendacao": null
+      },
+      {
+        "municipio": "Madalena",
+        "respostas": 0,
+        "nota_media_recomendacao": null
+      },
+      {
+        "municipio": "Maranguape",
+        "respostas": 0,
+        "nota_media_recomendacao": null
+      },
+      {
+        "municipio": "Pastos Bons",
+        "respostas": 0,
+        "nota_media_recomendacao": null
+      },
+      {
+        "municipio": "Pentecoste",
+        "respostas": 0,
+        "nota_media_recomendacao": null
+      },
+      {
+        "municipio": "Pereiro",
+        "respostas": 0,
+        "nota_media_recomendacao": null
+      },
+      {
+        "municipio": "Pires Ferreira",
+        "respostas": 0,
+        "nota_media_recomendacao": null
+      },
+      {
+        "municipio": "Redenção",
+        "respostas": 0,
+        "nota_media_recomendacao": null
+      },
+      {
+        "municipio": "São Bento",
+        "respostas": 0,
+        "nota_media_recomendacao": null
+      },
+      {
+        "municipio": "São José dos Ramos",
+        "respostas": 0,
+        "nota_media_recomendacao": null
+      },
+      {
+        "municipio": "Ubajara",
+        "respostas": 0,
+        "nota_media_recomendacao": null
+      },
+      {
+        "municipio": "Vargem Grande",
+        "respostas": 0,
+        "nota_media_recomendacao": null
       }
     ]
   }
