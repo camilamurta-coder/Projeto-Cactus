@@ -257,7 +257,7 @@ def ler_gamificacao(caminho: Path) -> list[dict]:
     return dedup
 
 
-def agregar_gamificacao(alunos: list[dict]) -> dict:
+def agregar_gamificacao(alunos: list[dict], total_municipios_jornada: int) -> dict:
     def resumo(grupo):
         total = len(grupo)
         engajados = sum(1 for a in grupo if a["pontos"] > 0)
@@ -289,10 +289,15 @@ def agregar_gamificacao(alunos: list[dict]) -> dict:
         r["por_nivel_turma"] = {niv: resumo(g) for niv, g in por_nivel.items()}
         lista_municipios.append(r)
 
-    lista_municipios.sort(key=lambda r: r["pct_engajados"], reverse=True)
+    lista_municipios.sort(key=lambda r: norm(r["municipio"]))
+
+    geral = resumo(alunos)
+    geral["municipios_com_inscritos"] = len(lista_municipios)
+    geral["municipios_com_ativos"] = sum(1 for r in lista_municipios if r["alunos_engajados"] > 0)
+    geral["total_municipios_jornada"] = total_municipios_jornada
 
     return {
-        "geral": resumo(alunos),
+        "geral": geral,
         "por_municipio": lista_municipios,
     }
 
@@ -316,9 +321,10 @@ def main() -> int:
     painel = ler_painel(wb["Painel"])
     checklist_itens = ler_checklist(wb["Checklist"])
     municipios_acesso = ler_acesso(wb["Acesso"])
+    municipios_acesso.sort(key=lambda m: norm(m["municipio"]))
 
     alunos = ler_gamificacao(caminho_csv)
-    gamificacao = agregar_gamificacao(alunos)
+    gamificacao = agregar_gamificacao(alunos, total_municipios_jornada=len(municipios_acesso))
 
     saida = {
         "gerado_em_arquivo": {
