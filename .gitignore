@@ -6,3 +6,6 @@ __pycache__/
 
 # dados com nome de aluno - uso interno, nunca publicar
 interno/
+
+# credenciais - NUNCA commitar
+secrets/

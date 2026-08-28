@@ -35,9 +35,29 @@ municipal), publicado como página estática via GitHub Pages.
    caminho configurado em `CSV_PADRAO`, no topo do arquivo). Para usar um
    arquivo de planilha local em vez do Google Sheets, passe o caminho como
    primeiro argumento: `python build_data.py "caminho\planilha.xlsx" "caminho\gamificacao.csv"`.
-4. Confira o resultado abrindo `index.html` no navegador.
-5. Envie as mudanças pro GitHub (`git add`, `git commit`, `git push`) — a
+4. (Opcional) Rode `python sync_gamificacao.py` para gravar o mesmo CSV,
+   por aluno, na aba "Gamificação" da planilha de gestão no Google Sheets
+   — ver seção abaixo.
+5. Confira o resultado abrindo `index.html` no navegador.
+6. Envie as mudanças pro GitHub (`git add`, `git commit`, `git push`) — a
    página publicada atualiza sozinha em 1-2 minutos.
+
+## Escrever no Google Sheets (aba Gamificação)
+
+`sync_gamificacao.py` grava o CSV de gamificação, por aluno (com nome), numa
+aba "Gamificação" da mesma planilha de gestão, usando uma conta de serviço
+do Google (não a mesma leitura pública usada por `build_data.py`).
+
+- Credencial: `secrets/painel-cactus-service-account.json` — **nunca vai pro
+  git** (pasta `secrets/` está no `.gitignore`).
+- Conta de serviço: `dash-133@teak-truck-506517-s2.iam.gserviceaccount.com`,
+  compartilhada como Editor na planilha.
+- **Atenção — ainda NÃO volte o compartilhamento para "Restrito":**
+  `build_data.py` (leitura das abas Painel/Checklist/Acesso) ainda depende
+  do link público. Só a escrita (`sync_gamificacao.py`) usa a conta de
+  serviço. Como essa aba nova tem nome de aluno, o ideal é migrar também a
+  leitura para a conta de serviço antes de restringir o acesso — me avise
+  se quiser que eu faça essa migração.
 
 ## Acesso
 
