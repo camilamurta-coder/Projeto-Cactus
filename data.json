@@ -66,8 +66,8 @@
     "acessos_geral": {
       "meta_pct": 0.42,
       "estudantes_n1n2": 2392,
-      "acesso_registrado": 222,
-      "pct_alcancado": 0.09280936455,
+      "acesso_registrado": 210,
+      "pct_alcancado": 0.08779264214,
       "municipios_prioridade_alta": 10,
       "municipios_sem_consultor": 0,
       "escolas_municipais": 208,
@@ -97,8 +97,8 @@
         "municipios": 4,
         "estudantes_n1n2": 554,
         "meta_acesso": 137.4,
-        "acesso_registrado": 20,
-        "atingimento_pct": 0.1455604076,
+        "acesso_registrado": 13,
+        "atingimento_pct": 0.09461426492,
         "municipios_com_medalhista": 0,
         "municipios_sem_medalhista_f1": 2
       },
@@ -107,8 +107,8 @@
         "municipios": 7,
         "estudantes_n1n2": 686,
         "meta_acesso": 309.9,
-        "acesso_registrado": 13,
-        "atingimento_pct": 0.04194901581,
+        "acesso_registrado": 10,
+        "atingimento_pct": 0.0322684737,
         "municipios_com_medalhista": 0,
         "municipios_sem_medalhista_f1": 5
       },
@@ -117,8 +117,8 @@
         "municipios": 19,
         "estudantes_n1n2": 2392,
         "meta_acesso": 1000.9,
-        "acesso_registrado": 220,
-        "atingimento_pct": 0.219802178,
+        "acesso_registrado": 210,
+        "atingimento_pct": 0.2098111699,
         "municipios_com_medalhista": 0,
         "municipios_sem_medalhista_f1": 10
       },
@@ -505,8 +505,8 @@
       "escolas_municipais": 33,
       "meta_pct": 0.2,
       "meta_acesso_abs": 81.8,
-      "acesso_registrado": 3,
-      "pct_acesso": 0.007334963325,
+      "acesso_registrado": 2,
+      "pct_acesso": 0.00488997555,
       "medalhistas_f1": 2,
       "meta_medalhistas_f2": 1,
       "medalhistas_f2_realizado": 0,
@@ -551,8 +551,8 @@
       "meta_atingida": "Aguardando",
       "prioridade": "Alta",
       "observacoes": null,
-      "farol": "Aguardando",
-      "motivo_farol": "Sem registro ainda"
+      "farol": "Risco",
+      "motivo_farol": "Nenhum estudante acessou"
     },
     {
       "municipio": "Aracruz",
@@ -608,8 +608,8 @@
       "meta_atingida": "Aguardando",
       "prioridade": "Alta",
       "observacoes": null,
-      "farol": "Aguardando",
-      "motivo_farol": "Sem registro ainda"
+      "farol": "Risco",
+      "motivo_farol": "Nenhum estudante acessou"
     },
     {
       "municipio": "Capistrano",
@@ -619,16 +619,16 @@
       "escolas_municipais": 5,
       "meta_pct": 0.5,
       "meta_acesso_abs": 22.5,
-      "acesso_registrado": 0,
-      "pct_acesso": 0.0,
+      "acesso_registrado": 3,
+      "pct_acesso": 0.06666666667,
       "medalhistas_f1": 0,
       "meta_medalhistas_f2": 1,
       "medalhistas_f2_realizado": 0,
       "meta_atingida": "Aguardando",
       "prioridade": "Alta",
       "observacoes": null,
-      "farol": "Aguardando",
-      "motivo_farol": "Sem registro ainda"
+      "farol": "Saudável",
+      "motivo_farol": "Tudo na meta"
     },
     {
       "municipio": "Iguatu",
@@ -638,7 +638,7 @@
       "escolas_municipais": 0,
       "meta_pct": 0.3,
       "meta_acesso_abs": 0.0,
-      "acesso_registrado": 2,
+      "acesso_registrado": 0,
       "pct_acesso": 0,
       "medalhistas_f1": 0,
       "meta_medalhistas_f2": 1,
@@ -657,8 +657,8 @@
       "escolas_municipais": 9,
       "meta_pct": 0.2,
       "meta_acesso_abs": 50.4,
-      "acesso_registrado": 9,
-      "pct_acesso": 0.03571428571,
+      "acesso_registrado": 2,
+      "pct_acesso": 0.007936507937,
       "medalhistas_f1": 0,
       "meta_medalhistas_f2": 1,
       "medalhistas_f2_realizado": 0,
@@ -676,16 +676,16 @@
       "escolas_municipais": 4,
       "meta_pct": 0.6,
       "meta_acesso_abs": 25.2,
-      "acesso_registrado": 0,
-      "pct_acesso": 0.0,
+      "acesso_registrado": 1,
+      "pct_acesso": 0.02380952381,
       "medalhistas_f1": 1,
       "meta_medalhistas_f2": 1,
       "medalhistas_f2_realizado": 0,
       "meta_atingida": "Aguardando",
       "prioridade": "Média",
       "observacoes": null,
-      "farol": "Aguardando",
-      "motivo_farol": "Sem registro ainda"
+      "farol": "Saudável",
+      "motivo_farol": "Tudo na meta"
     },
     {
       "municipio": "Maranguape",
@@ -760,8 +760,8 @@
       "meta_atingida": "Aguardando",
       "prioridade": "Média",
       "observacoes": null,
-      "farol": "Saudável",
-      "motivo_farol": "Tudo na meta"
+      "farol": "Risco",
+      "motivo_farol": "Nenhum estudante acessou"
     },
     {
       "municipio": "Pires Ferreira",
@@ -779,8 +779,8 @@
       "meta_atingida": "Aguardando",
       "prioridade": "Alta",
       "observacoes": null,
-      "farol": "Aguardando",
-      "motivo_farol": "Sem registro ainda"
+      "farol": "Risco",
+      "motivo_farol": "Nenhum estudante acessou"
     },
     {
       "municipio": "Redenção",
@@ -798,8 +798,8 @@
       "meta_atingida": "Aguardando",
       "prioridade": "Alta",
       "observacoes": null,
-      "farol": "Aguardando",
-      "motivo_farol": "Sem registro ainda"
+      "farol": "Risco",
+      "motivo_farol": "Nenhum estudante acessou"
     },
     {
       "municipio": "São Bento",
@@ -836,8 +836,8 @@
       "meta_atingida": "Aguardando",
       "prioridade": "Alta",
       "observacoes": null,
-      "farol": "Aguardando",
-      "motivo_farol": "Sem registro ainda"
+      "farol": "Risco",
+      "motivo_farol": "Nenhum estudante acessou"
     },
     {
       "municipio": "Ubajara",
@@ -847,8 +847,8 @@
       "escolas_municipais": 14,
       "meta_pct": 0.2,
       "meta_acesso_abs": 26.2,
-      "acesso_registrado": 7,
-      "pct_acesso": 0.0534351145,
+      "acesso_registrado": 1,
+      "pct_acesso": 0.007633587786,
       "medalhistas_f1": 0,
       "meta_medalhistas_f2": 1,
       "medalhistas_f2_realizado": 0,
