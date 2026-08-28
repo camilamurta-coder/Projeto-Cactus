@@ -99,7 +99,7 @@
   .bar-fill { position: absolute; left: 0; top: 0; height: 100%; border-radius: 5px; background: var(--series-1); }
   .bar-row .val { font-size: 0.8rem; color: var(--text-secondary); text-align: right; font-variant-numeric: tabular-nums; }
 
-  .bullet-row { display: grid; grid-template-columns: 130px 1fr 170px; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .bullet-row { display: grid; grid-template-columns: 220px 1fr 170px; align-items: center; gap: 10px; margin-bottom: 14px; }
   .bullet-track { position: relative; height: 14px; border-radius: 4px; background: var(--gridline); }
   .bullet-fill { position: absolute; left: 0; top: 0; height: 100%; border-radius: 4px; }
   .bullet-target { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--text-primary); opacity: 0.55; }
@@ -158,6 +158,16 @@
   .chip:hover { color: var(--text-primary); }
   .chip.active { background: var(--series-1); border-color: var(--series-1); color: #fff; }
   .chip.active .count { background: rgba(255,255,255,0.25); color: #fff; }
+
+  /* progress cards (cards de engajamento no topo) */
+  .progress-card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; }
+  .progress-card .label { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 8px; }
+  .progress-card .value { font-size: 1.7rem; font-weight: 700; }
+  .progress-card .meta { font-size: 0.78rem; color: var(--text-muted); margin: 2px 0 10px; }
+  .progress-card .bar-track { height: 8px; border-radius: 4px; background: var(--gridline); position: relative; overflow: hidden; }
+  .progress-card .bar-fill { position: absolute; left: 0; top: 0; height: 100%; border-radius: 4px; background: var(--status-good); }
+  .progress-card .foot { display: flex; justify-content: space-between; font-size: 0.76rem; color: var(--text-secondary); margin-top: 8px; }
+  .progress-card.no-goal .value { margin-bottom: 4px; }
 </style>
 
 <div class="wrap" id="app">
@@ -175,14 +185,14 @@
   <nav class="tabbar" id="tabbar"></nav>
 
   <div class="tab-panel" data-tab="trilha-obmep" id="tab-trilha-obmep">
-    <section id="sec-hero">
-      <div class="tiles" id="hero-tiles"></div>
+    <section id="sec-engajamento-cards">
+      <h2>Engajamento na trilha</h2>
+      <p class="desc">Dados agregados — nenhum nome de estudante é exibido aqui (lista individual fica na pasta interna, só para conferência).</p>
+      <div class="tiles" id="engajamento-cards"></div>
     </section>
 
-    <section id="sec-checklist">
-      <h2>Checklist de entregáveis</h2>
-      <p class="desc">Progresso por bloco do lançamento — % concluído sobre o total de entregáveis do bloco.</p>
-      <div class="card" id="checklist-bars"></div>
+    <section id="sec-hero">
+      <div class="tiles" id="hero-tiles"></div>
     </section>
 
     <section id="sec-acessos-meta">
@@ -201,8 +211,8 @@
     </section>
 
     <section id="sec-consultores">
-      <h2>Acesso por consultor</h2>
-      <p class="desc">Acesso registrado em relação à meta de cada consultor. Verde a partir de 100% da meta, vermelho abaixo de 70%.</p>
+      <h2 id="titulo-carteiras">Carteiras de atuação</h2>
+      <p class="desc">Acesso registrado em relação à meta de cada carteira de cidades. Verde a partir de 100% da meta, vermelho abaixo de 70%.</p>
       <div class="card" id="consultores-bars" style="margin-bottom:16px;"></div>
       <div class="card table-scroll">
         <table id="tbl-consultores"></table>
@@ -219,12 +229,24 @@
     </section>
 
     <section id="sec-gamificacao">
-      <h2>Engajamento na gamificação</h2>
-      <p class="desc">Dados agregados — nenhum nome de aluno é exibido aqui (lista individual fica na pasta interna, só para conferência).</p>
-      <div class="tiles" id="gamif-tiles" style="margin-bottom:18px;"></div>
+      <h2>Engajamento por cidade</h2>
+      <p class="desc">% de estudantes com pontuação &gt; 0 em cada cidade, em ordem alfabética — inclui cidades ainda sem nenhum estudante inscrito.</p>
       <div class="card">
-        <h2 style="font-size:0.9rem;margin-bottom:12px;">Engajamento por cidade (ordem alfabética)</h2>
         <div id="gamif-bars"></div>
+      </div>
+    </section>
+
+    <section id="sec-consumo-conteudo">
+      <h2>Consumo de conteúdo</h2>
+      <p class="desc">Aguardando fonte de dados — ver observação abaixo.</p>
+      <div class="placeholder-card" style="text-align:left;">
+        <p style="margin:0 0 10px;"><strong>Ainda não temos os dados para preencher este quadro.</strong> Estrutura prevista:</p>
+        <ul class="notes" style="margin:0 0 10px 18px;">
+          <li><strong>Trilha da OBMEP</strong> — Exercícios, Prova extra</li>
+          <li><strong>Minha Jornada Olímpica</strong> — Pesquisa (Formulário final)</li>
+          <li><strong>Simulados</strong> — participação, com alerta/notificação do próximo simulado</li>
+        </ul>
+        <p style="margin:0;">Assim que houver um export com esses dados, me envie que eu monto os cards.</p>
       </div>
     </section>
 
@@ -244,7 +266,11 @@
     <div class="placeholder-card">Aba <strong>Turmas Olímpicas</strong> — em breve.</div>
   </div>
   <div class="tab-panel" data-tab="tarefas" id="tab-tarefas">
-    <div class="placeholder-card">Aba <strong>Tarefas</strong> — em breve.</div>
+    <section id="sec-checklist">
+      <h2>Checklist de entregáveis</h2>
+      <p class="desc">Progresso por bloco do lançamento — % concluído sobre o total de entregáveis do bloco.</p>
+      <div class="card" id="checklist-bars"></div>
+    </section>
   </div>
   <div class="tab-panel" data-tab="comunicacao" id="tab-comunicacao">
     <div class="placeholder-card">Aba <strong>Comunicação</strong> — em breve.</div>
@@ -411,13 +437,19 @@ document.getElementById('gerado').textContent =
   }
 })();
 
-// ---------- consultores ----------
+// ---------- consultores (carteiras de atuacao) ----------
+const CARTEIRAS = {
+  Fernando: 'Cultura Olímpica e Anos Iniciais',
+  Mariene: 'Implantação e Formalização',
+  Erick: 'Empresas Madrinha e Personalizados',
+};
 (function () {
   const host = document.getElementById('consultores-bars');
   const rows = DATA.painel.consultores.filter(c => c.consultor !== 'Total' && c.consultor !== 'Sem consultor definido' && c.municipios > 0);
   rows.forEach(c => {
     const row = el('div', 'bullet-row');
-    row.appendChild(el('div', 'name', `<strong>${c.consultor}</strong><div class="hint" style="font-size:.72rem;color:var(--text-muted)">${c.municipios} municípios</div>`));
+    const carteira = CARTEIRAS[c.consultor] || c.consultor;
+    row.appendChild(el('div', 'name', `<strong>${carteira}</strong><div class="hint" style="font-size:.72rem;color:var(--text-muted)">${c.consultor} · ${c.municipios} municípios</div>`));
     const track = el('div', 'bullet-track');
     const pct = Math.min(c.atingimento_pct, 1.15);
     const fill = el('div', 'bullet-fill');
@@ -441,7 +473,7 @@ document.getElementById('gerado').textContent =
   // tabela completa (todas as colunas da aba Painel, inclusive Total e
   // "Sem consultor definido", para bater 1:1 com a planilha)
   const cols = [
-    { key: 'consultor', label: 'Consultor' },
+    { key: 'consultor', label: 'Carteira' },
     { key: 'municipios', label: 'Municípios (meta 19/19)' },
     { key: 'estudantes_n1n2', label: 'Estudantes N1+N2' },
     { key: 'meta_acesso', label: 'Meta de acesso' },
@@ -462,7 +494,12 @@ document.getElementById('gerado').textContent =
     const tr = el('tr');
     cols.forEach(col => {
       let texto;
-      if (col.key === 'consultor') texto = destaque ? `<strong>${c.consultor}</strong>` : c.consultor;
+      if (col.key === 'consultor') {
+        const carteira = CARTEIRAS[c.consultor];
+        texto = destaque ? `<strong>${c.consultor}</strong>`
+          : carteira ? `${carteira}<div class="hint" style="font-size:.7rem;color:var(--text-muted)">${c.consultor}</div>`
+          : c.consultor;
+      }
       else if (col.key === 'meta_acesso') texto = fmtNum(Math.round(c.meta_acesso));
       else if (col.key === 'atingimento_pct') {
         const cor = (!destaque && c.municipios > 0 && c.atingimento_pct < 0.7) ? 'var(--status-critical)' : 'inherit';
@@ -485,8 +522,8 @@ document.getElementById('gerado').textContent =
     { key: 'estudantes_n1n2', label: 'Estudantes', type: 'num' },
     { key: 'escolas_municipais', label: 'Escolas', type: 'num' },
     { key: 'pct_acesso', label: '% acesso', type: 'pct' },
-    { key: 'medalhistas_f1', label: 'Medalhistas F1', type: 'num' },
-    { key: 'meta_medalhistas_f2', label: 'Meta F2', type: 'num' },
+    { key: 'medalhistas_f1', label: 'Medalhistas 2026', type: 'num' },
+    { key: 'meta_medalhistas_f2', label: 'Meta Medalhistas', type: 'num' },
     { key: 'prioridade', label: 'Prioridade', type: 'badge-prio' },
     { key: 'farol', label: 'Farol', type: 'badge-farol' },
   ];
@@ -558,40 +595,86 @@ document.getElementById('gerado').textContent =
   render();
 })();
 
-// ---------- gamificacao ----------
+// ---------- cards de engajamento (estilo progresso) ----------
 (function () {
   const g = DATA.gamificacao.geral;
-  const tilesHost = document.getElementById('gamif-tiles');
-  const tiles = [
-    ['Alunos inscritos na trilha', fmtNum(g.total_alunos), ''],
-    ['Estudantes que iniciaram a trilha', fmtNum(g.alunos_engajados), `${fmtPct(g.pct_engajados)} dos inscritos`],
-    ['Conquistas desbloqueadas', fmtNum(g.conquistas_totais), ''],
-    ['Municípios com alunos inscritos', `${fmtNum(g.municipios_com_inscritos)} / ${fmtNum(g.total_municipios_jornada)}`, ''],
-    ['Municípios com alunos ativos', `${fmtNum(g.municipios_com_ativos)} / ${fmtNum(g.total_municipios_jornada)}`, 'Ao menos 1 aluno com pontuação > 0'],
-  ];
-  tiles.forEach(([label, value, hint]) => {
-    const t = el('div', 'tile');
-    t.appendChild(el('div', 'label', label));
-    t.appendChild(el('div', 'value', value));
-    if (hint) t.appendChild(el('div', 'hint', hint));
-    tilesHost.appendChild(t);
-  });
+  const host = document.getElementById('engajamento-cards');
 
+  function progressCard({ label, value, meta, pct, hint }) {
+    const card = el('div', `progress-card${meta == null ? ' no-goal' : ''}`);
+    card.appendChild(el('div', 'label', label));
+    card.appendChild(el('div', 'value', value));
+    if (meta != null) card.appendChild(el('div', 'meta', `Meta: ${meta}`));
+    if (pct != null) {
+      const track = el('div', 'bar-track');
+      const fill = el('div', 'bar-fill');
+      fill.style.width = `${Math.min(pct * 100, 100)}%`;
+      track.appendChild(fill);
+      card.appendChild(track);
+      card.appendChild(el('div', 'foot', `<span>${fmtPct(pct)} da meta</span>`));
+    } else if (hint) {
+      card.appendChild(el('div', 'hint', hint));
+    }
+    host.appendChild(card);
+  }
+
+  // meta de inscritos: total de estudantes N1+N2 elegiveis (aba Acesso)
+  const metaInscritos = DATA.painel.acessos_geral.estudantes_n1n2;
+  progressCard({
+    label: 'Estudantes inscritos',
+    value: fmtNum(g.total_alunos),
+    meta: fmtNum(metaInscritos),
+    pct: metaInscritos ? g.total_alunos / metaInscritos : null,
+  });
+  progressCard({
+    label: 'Estudantes que iniciaram a trilha',
+    value: fmtNum(g.alunos_engajados),
+    meta: fmtNum(g.total_alunos),
+    pct: g.total_alunos ? g.alunos_engajados / g.total_alunos : null,
+  });
+  progressCard({
+    label: 'Conquistas desbloqueadas',
+    value: fmtNum(g.conquistas_totais),
+    hint: 'Detalhamento por tipo (5 tipos) pendente — precisa de um export com essa informação.',
+  });
+  progressCard({
+    label: 'Municípios com estudantes inscritos',
+    value: fmtNum(g.municipios_com_inscritos),
+    meta: fmtNum(g.total_municipios_jornada),
+    pct: g.total_municipios_jornada ? g.municipios_com_inscritos / g.total_municipios_jornada : null,
+  });
+  progressCard({
+    label: 'Municípios com estudantes ativos',
+    value: fmtNum(g.municipios_com_ativos),
+    meta: fmtNum(g.total_municipios_jornada),
+    pct: g.total_municipios_jornada ? g.municipios_com_ativos / g.total_municipios_jornada : null,
+    hint: 'Ao menos 1 estudante com pontuação > 0',
+  });
+})();
+
+// ---------- engajamento por cidade (lista) ----------
+(function () {
   const host = document.getElementById('gamif-bars');
   const rows = DATA.gamificacao.por_municipio; // ja vem em ordem alfabetica do build_data.py
   const max = Math.max(...rows.map(r => r.pct_engajados), 0.01);
   rows.forEach(r => {
     const row = el('div', 'rank-bar-row');
     row.appendChild(el('div', 'name', r.municipio));
-    const track = el('div', 'bar-track');
-    const fill = el('div', 'bar-fill');
-    fill.style.width = `${(r.pct_engajados / max) * 100}%`;
-    track.appendChild(fill);
-    row.appendChild(track);
-    row.appendChild(el('div', 'val', fmtPct(r.pct_engajados)));
+    if (r.sem_inscritos) {
+      const track = el('div', 'bar-track');
+      row.appendChild(track);
+      row.appendChild(el('div', 'val', '<span class="badge muted"><span class="dot"></span>sem inscritos</span>'));
+    } else {
+      const track = el('div', 'bar-track');
+      const fill = el('div', 'bar-fill');
+      fill.style.width = `${(r.pct_engajados / max) * 100}%`;
+      track.appendChild(fill);
+      row.appendChild(track);
+      row.appendChild(el('div', 'val', fmtPct(r.pct_engajados)));
+    }
     host.appendChild(row);
   });
-  host.appendChild(el('div', 'legend-row', `% de alunos com pontuação &gt; 0, de ${rows.length} municípios com dados no LMS até o momento.`));
+  host.appendChild(el('div', 'legend-row', `% de estudantes com pontuação &gt; 0, de ${rows.length} municípios da Jornada.`));
 })();
 
 // ---------- notas ----------
@@ -602,7 +685,7 @@ document.getElementById('gerado').textContent =
     'Atingimento da meta de acesso por consultor = 1º acesso registrado ÷ meta de 1º acesso. Verde a partir de 100%, vermelho abaixo de 70%.',
     'Prioridade: Alta = município sem medalhista municipal na Fase 1 · Média = acesso abaixo da meta · Ok = acesso na meta ou acima.',
     'Meta de medalhista da Fase 2 só é lida como atingida após o resultado oficial da OBMEP.',
-    'A lista individual de alunos (gamificação) fica apenas na pasta interna do projeto, para conferência — não é publicada neste painel.',
+    'A lista individual de estudantes (gamificação) fica apenas na pasta interna do projeto, para conferência — não é publicada neste painel.',
   ];
   notas.forEach(n => host.appendChild(el('li', '', n)));
 })();

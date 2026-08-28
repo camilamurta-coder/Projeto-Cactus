@@ -1,7 +1,7 @@
 {
   "gerado_em_arquivo": {
     "planilha": "2026_Acompanhamento_JornadaOBMEP (1).xlsx",
-    "csv_gamificacao": "gamificacao (2).csv"
+    "csv_gamificacao": "gamificacao (3).csv"
   },
   "painel": {
     "titulo": "Jornada rumo à medalha — quadro de acompanhamento",
@@ -880,28 +880,28 @@
   ],
   "gamificacao": {
     "geral": {
-      "total_alunos": 364,
-      "alunos_engajados": 92,
-      "pct_engajados": 0.2527,
-      "pontos_totais": 9802,
-      "pontos_medio_engajados": 106.5,
-      "nivel_medio": 0.44,
-      "conquistas_totais": 105,
+      "total_alunos": 383,
+      "alunos_engajados": 103,
+      "pct_engajados": 0.2689,
+      "pontos_totais": 12644,
+      "pontos_medio_engajados": 122.8,
+      "nivel_medio": 0.49,
+      "conquistas_totais": 123,
       "maior_pontuacao": 857,
       "municipios_com_inscritos": 13,
-      "municipios_com_ativos": 9,
+      "municipios_com_ativos": 10,
       "total_municipios_jornada": 20
     },
     "por_municipio": [
       {
         "total_alunos": 22,
-        "alunos_engajados": 1,
-        "pct_engajados": 0.0455,
-        "pontos_totais": 10,
-        "pontos_medio_engajados": 10.0,
-        "nivel_medio": 0.05,
-        "conquistas_totais": 1,
-        "maior_pontuacao": 10,
+        "alunos_engajados": 2,
+        "pct_engajados": 0.0909,
+        "pontos_totais": 153,
+        "pontos_medio_engajados": 76.5,
+        "nivel_medio": 0.14,
+        "conquistas_totais": 3,
+        "maior_pontuacao": 143,
         "municipio": "AÇAILÂNDIA",
         "por_nivel_turma": {
           "6º E 7º": {
@@ -916,67 +916,80 @@
           },
           "8º E 9º": {
             "total_alunos": 9,
-            "alunos_engajados": 1,
-            "pct_engajados": 0.1111,
-            "pontos_totais": 10,
-            "pontos_medio_engajados": 10.0,
-            "nivel_medio": 0.11,
-            "conquistas_totais": 1,
-            "maior_pontuacao": 10
+            "alunos_engajados": 2,
+            "pct_engajados": 0.2222,
+            "pontos_totais": 153,
+            "pontos_medio_engajados": 76.5,
+            "nivel_medio": 0.33,
+            "conquistas_totais": 3,
+            "maior_pontuacao": 143
           }
         }
       },
       {
-        "total_alunos": 211,
-        "alunos_engajados": 66,
-        "pct_engajados": 0.3128,
-        "pontos_totais": 7334,
-        "pontos_medio_engajados": 111.1,
-        "nivel_medio": 0.55,
-        "conquistas_totais": 75,
+        "total_alunos": 224,
+        "alunos_engajados": 74,
+        "pct_engajados": 0.3304,
+        "pontos_totais": 9813,
+        "pontos_medio_engajados": 132.6,
+        "nivel_medio": 0.62,
+        "conquistas_totais": 88,
         "maior_pontuacao": 857,
         "municipio": "ACARAÚ",
         "por_nivel_turma": {
           "6º E 7º": {
-            "total_alunos": 121,
-            "alunos_engajados": 39,
-            "pct_engajados": 0.3223,
-            "pontos_totais": 5303,
-            "pontos_medio_engajados": 136.0,
-            "nivel_medio": 0.59,
-            "conquistas_totais": 42,
+            "total_alunos": 125,
+            "alunos_engajados": 43,
+            "pct_engajados": 0.344,
+            "pontos_totais": 6389,
+            "pontos_medio_engajados": 148.6,
+            "nivel_medio": 0.66,
+            "conquistas_totais": 49,
             "maior_pontuacao": 857
           },
           "8º E 9º": {
-            "total_alunos": 90,
-            "alunos_engajados": 27,
-            "pct_engajados": 0.3,
-            "pontos_totais": 2031,
-            "pontos_medio_engajados": 75.2,
-            "nivel_medio": 0.5,
-            "conquistas_totais": 33,
-            "maior_pontuacao": 240
+            "total_alunos": 99,
+            "alunos_engajados": 31,
+            "pct_engajados": 0.3131,
+            "pontos_totais": 3424,
+            "pontos_medio_engajados": 110.5,
+            "nivel_medio": 0.57,
+            "conquistas_totais": 39,
+            "maior_pontuacao": 753
           }
         }
       },
       {
-        "total_alunos": 16,
+        "total_alunos": 0,
+        "alunos_engajados": 0,
+        "pct_engajados": 0,
+        "pontos_totais": 0,
+        "pontos_medio_engajados": 0,
+        "nivel_medio": 0,
+        "conquistas_totais": 0,
+        "maior_pontuacao": 0,
+        "municipio": "Alagoa Nova",
+        "por_nivel_turma": {},
+        "sem_inscritos": true
+      },
+      {
+        "total_alunos": 17,
         "alunos_engajados": 5,
-        "pct_engajados": 0.3125,
+        "pct_engajados": 0.2941,
         "pontos_totais": 170,
         "pontos_medio_engajados": 34.0,
-        "nivel_medio": 0.38,
+        "nivel_medio": 0.35,
         "conquistas_totais": 5,
         "maior_pontuacao": 70,
         "municipio": "ARACRUZ",
         "por_nivel_turma": {
           "6º E 7º": {
-            "total_alunos": 7,
+            "total_alunos": 8,
             "alunos_engajados": 2,
-            "pct_engajados": 0.2857,
+            "pct_engajados": 0.25,
             "pontos_totais": 40,
             "pontos_medio_engajados": 20.0,
-            "nivel_medio": 0.29,
+            "nivel_medio": 0.25,
             "conquistas_totais": 2,
             "maior_pontuacao": 30
           },
@@ -993,23 +1006,23 @@
         }
       },
       {
-        "total_alunos": 28,
+        "total_alunos": 29,
         "alunos_engajados": 4,
-        "pct_engajados": 0.1429,
-        "pontos_totais": 906,
-        "pontos_medio_engajados": 226.5,
-        "nivel_medio": 0.36,
+        "pct_engajados": 0.1379,
+        "pontos_totais": 1013,
+        "pontos_medio_engajados": 253.2,
+        "nivel_medio": 0.34,
         "conquistas_totais": 6,
         "maior_pontuacao": 670,
         "municipio": "BELA CRUZ",
         "por_nivel_turma": {
           "6º E 7º": {
-            "total_alunos": 13,
+            "total_alunos": 14,
             "alunos_engajados": 2,
-            "pct_engajados": 0.1538,
-            "pontos_totais": 736,
-            "pontos_medio_engajados": 368.0,
-            "nivel_medio": 0.54,
+            "pct_engajados": 0.1429,
+            "pontos_totais": 843,
+            "pontos_medio_engajados": 421.5,
+            "nivel_medio": 0.5,
             "conquistas_totais": 3,
             "maior_pontuacao": 670
           },
@@ -1026,28 +1039,41 @@
         }
       },
       {
-        "total_alunos": 13,
+        "total_alunos": 0,
+        "alunos_engajados": 0,
+        "pct_engajados": 0,
+        "pontos_totais": 0,
+        "pontos_medio_engajados": 0,
+        "nivel_medio": 0,
+        "conquistas_totais": 0,
+        "maior_pontuacao": 0,
+        "municipio": "Caldeirão Grande",
+        "por_nivel_turma": {},
+        "sem_inscritos": true
+      },
+      {
+        "total_alunos": 15,
         "alunos_engajados": 3,
-        "pct_engajados": 0.2308,
+        "pct_engajados": 0.2,
         "pontos_totais": 162,
         "pontos_medio_engajados": 54.0,
-        "nivel_medio": 0.31,
+        "nivel_medio": 0.27,
         "conquistas_totais": 3,
         "maior_pontuacao": 100,
         "municipio": "CAPISTRANO",
         "por_nivel_turma": {
           "6º E 7º": {
-            "total_alunos": 6,
+            "total_alunos": 7,
             "alunos_engajados": 3,
-            "pct_engajados": 0.5,
+            "pct_engajados": 0.4286,
             "pontos_totais": 162,
             "pontos_medio_engajados": 54.0,
-            "nivel_medio": 0.67,
+            "nivel_medio": 0.57,
             "conquistas_totais": 3,
             "maior_pontuacao": 100
           },
           "8º E 9º": {
-            "total_alunos": 7,
+            "total_alunos": 8,
             "alunos_engajados": 0,
             "pct_engajados": 0.0,
             "pontos_totais": 0,
@@ -1093,23 +1119,23 @@
       },
       {
         "total_alunos": 13,
-        "alunos_engajados": 1,
-        "pct_engajados": 0.0769,
-        "pontos_totais": 510,
-        "pontos_medio_engajados": 510.0,
-        "nivel_medio": 0.31,
-        "conquistas_totais": 1,
+        "alunos_engajados": 2,
+        "pct_engajados": 0.1538,
+        "pontos_totais": 563,
+        "pontos_medio_engajados": 281.5,
+        "nivel_medio": 0.38,
+        "conquistas_totais": 2,
         "maior_pontuacao": 510,
         "municipio": "IPOJUCA",
         "por_nivel_turma": {
           "6º E 7º": {
             "total_alunos": 7,
-            "alunos_engajados": 1,
-            "pct_engajados": 0.1429,
-            "pontos_totais": 510,
-            "pontos_medio_engajados": 510.0,
-            "nivel_medio": 0.57,
-            "conquistas_totais": 1,
+            "alunos_engajados": 2,
+            "pct_engajados": 0.2857,
+            "pontos_totais": 563,
+            "pontos_medio_engajados": 281.5,
+            "nivel_medio": 0.71,
+            "conquistas_totais": 2,
             "maior_pontuacao": 510
           },
           "8º E 9º": {
@@ -1125,14 +1151,14 @@
         }
       },
       {
-        "total_alunos": 6,
-        "alunos_engajados": 0,
-        "pct_engajados": 0.0,
-        "pontos_totais": 0,
-        "pontos_medio_engajados": 0,
-        "nivel_medio": 0.0,
-        "conquistas_totais": 0,
-        "maior_pontuacao": 0,
+        "total_alunos": 7,
+        "alunos_engajados": 1,
+        "pct_engajados": 0.1429,
+        "pontos_totais": 40,
+        "pontos_medio_engajados": 40.0,
+        "nivel_medio": 0.14,
+        "conquistas_totais": 2,
+        "maior_pontuacao": 40,
         "municipio": "MADALENA",
         "por_nivel_turma": {
           "6º E 7º": {
@@ -1146,24 +1172,24 @@
             "maior_pontuacao": 0
           },
           "8º E 9º": {
-            "total_alunos": 3,
-            "alunos_engajados": 0,
-            "pct_engajados": 0.0,
-            "pontos_totais": 0,
-            "pontos_medio_engajados": 0,
-            "nivel_medio": 0.0,
-            "conquistas_totais": 0,
-            "maior_pontuacao": 0
+            "total_alunos": 4,
+            "alunos_engajados": 1,
+            "pct_engajados": 0.25,
+            "pontos_totais": 40,
+            "pontos_medio_engajados": 40.0,
+            "nivel_medio": 0.25,
+            "conquistas_totais": 2,
+            "maior_pontuacao": 40
           }
         }
       },
       {
-        "total_alunos": 3,
+        "total_alunos": 4,
         "alunos_engajados": 1,
-        "pct_engajados": 0.3333,
+        "pct_engajados": 0.25,
         "pontos_totais": 10,
         "pontos_medio_engajados": 10.0,
-        "nivel_medio": 0.33,
+        "nivel_medio": 0.25,
         "conquistas_totais": 1,
         "maior_pontuacao": 10,
         "municipio": "MARANGUAPE",
@@ -1179,7 +1205,7 @@
             "maior_pontuacao": 10
           },
           "8º E 9º": {
-            "total_alunos": 1,
+            "total_alunos": 2,
             "alunos_engajados": 0,
             "pct_engajados": 0.0,
             "pontos_totais": 0,
@@ -1194,8 +1220,8 @@
         "total_alunos": 36,
         "alunos_engajados": 10,
         "pct_engajados": 0.2778,
-        "pontos_totais": 680,
-        "pontos_medio_engajados": 68.0,
+        "pontos_totais": 700,
+        "pontos_medio_engajados": 70.0,
         "nivel_medio": 0.44,
         "conquistas_totais": 11,
         "maior_pontuacao": 230,
@@ -1215,13 +1241,26 @@
             "total_alunos": 16,
             "alunos_engajados": 4,
             "pct_engajados": 0.25,
-            "pontos_totais": 310,
-            "pontos_medio_engajados": 77.5,
+            "pontos_totais": 330,
+            "pontos_medio_engajados": 82.5,
             "nivel_medio": 0.44,
             "conquistas_totais": 5,
-            "maior_pontuacao": 200
+            "maior_pontuacao": 220
           }
         }
+      },
+      {
+        "total_alunos": 0,
+        "alunos_engajados": 0,
+        "pct_engajados": 0,
+        "pontos_totais": 0,
+        "pontos_medio_engajados": 0,
+        "nivel_medio": 0,
+        "conquistas_totais": 0,
+        "maior_pontuacao": 0,
+        "municipio": "Pentecoste",
+        "por_nivel_turma": {},
+        "sem_inscritos": true
       },
       {
         "total_alunos": 4,
@@ -1245,6 +1284,45 @@
             "maior_pontuacao": 0
           }
         }
+      },
+      {
+        "total_alunos": 0,
+        "alunos_engajados": 0,
+        "pct_engajados": 0,
+        "pontos_totais": 0,
+        "pontos_medio_engajados": 0,
+        "nivel_medio": 0,
+        "conquistas_totais": 0,
+        "maior_pontuacao": 0,
+        "municipio": "Pires Ferreira",
+        "por_nivel_turma": {},
+        "sem_inscritos": true
+      },
+      {
+        "total_alunos": 0,
+        "alunos_engajados": 0,
+        "pct_engajados": 0,
+        "pontos_totais": 0,
+        "pontos_medio_engajados": 0,
+        "nivel_medio": 0,
+        "conquistas_totais": 0,
+        "maior_pontuacao": 0,
+        "municipio": "Redenção",
+        "por_nivel_turma": {},
+        "sem_inscritos": true
+      },
+      {
+        "total_alunos": 0,
+        "alunos_engajados": 0,
+        "pct_engajados": 0,
+        "pontos_totais": 0,
+        "pontos_medio_engajados": 0,
+        "nivel_medio": 0,
+        "conquistas_totais": 0,
+        "maior_pontuacao": 0,
+        "municipio": "São Bento",
+        "por_nivel_turma": {},
+        "sem_inscritos": true
       },
       {
         "total_alunos": 3,
@@ -1311,6 +1389,19 @@
             "maior_pontuacao": 20
           }
         }
+      },
+      {
+        "total_alunos": 0,
+        "alunos_engajados": 0,
+        "pct_engajados": 0,
+        "pontos_totais": 0,
+        "pontos_medio_engajados": 0,
+        "nivel_medio": 0,
+        "conquistas_totais": 0,
+        "maior_pontuacao": 0,
+        "municipio": "Vargem Grande",
+        "por_nivel_turma": {},
+        "sem_inscritos": true
       }
     ]
   }

@@ -29,7 +29,7 @@ from pathlib import Path
 import openpyxl
 
 XLSX_PADRAO = r"C:\Users\Camila\Downloads\2026_Acompanhamento_JornadaOBMEP (1).xlsx"
-CSV_PADRAO = r"C:\Users\Camila\Downloads\gamificacao (2).csv"
+CSV_PADRAO = r"C:\Users\Camila\Downloads\gamificacao (3).csv"
 
 AQUI = Path(__file__).parent
 INTERNO = AQUI / "interno"
@@ -257,7 +257,7 @@ def ler_gamificacao(caminho: Path) -> list[dict]:
     return dedup
 
 
-def agregar_gamificacao(alunos: list[dict], total_municipios_jornada: int) -> dict:
+def agregar_gamificacao(alunos: list[dict], municipios_jornada: list[str]) -> dict:
     def resumo(grupo):
         total = len(grupo)
         engajados = sum(1 for a in grupo if a["pontos"] > 0)
@@ -289,12 +289,24 @@ def agregar_gamificacao(alunos: list[dict], total_municipios_jornada: int) -> di
         r["por_nivel_turma"] = {niv: resumo(g) for niv, g in por_nivel.items()}
         lista_municipios.append(r)
 
+    # inclui, com zero, os municipios da Jornada que ainda nao tem nenhum
+    # estudante na base de gamificacao (para aparecerem na lista tambem)
+    vazio = resumo([])
+    presentes = {norm(r["municipio"]) for r in lista_municipios}
+    for nome in municipios_jornada:
+        if norm(nome) not in presentes:
+            r = dict(vazio)
+            r["municipio"] = nome
+            r["por_nivel_turma"] = {}
+            r["sem_inscritos"] = True
+            lista_municipios.append(r)
+
     lista_municipios.sort(key=lambda r: norm(r["municipio"]))
 
     geral = resumo(alunos)
-    geral["municipios_com_inscritos"] = len(lista_municipios)
+    geral["municipios_com_inscritos"] = sum(1 for r in lista_municipios if r["total_alunos"] > 0)
     geral["municipios_com_ativos"] = sum(1 for r in lista_municipios if r["alunos_engajados"] > 0)
-    geral["total_municipios_jornada"] = total_municipios_jornada
+    geral["total_municipios_jornada"] = len(municipios_jornada)
 
     return {
         "geral": geral,
@@ -324,7 +336,9 @@ def main() -> int:
     municipios_acesso.sort(key=lambda m: norm(m["municipio"]))
 
     alunos = ler_gamificacao(caminho_csv)
-    gamificacao = agregar_gamificacao(alunos, total_municipios_jornada=len(municipios_acesso))
+    gamificacao = agregar_gamificacao(
+        alunos, municipios_jornada=[m["municipio"] for m in municipios_acesso]
+    )
 
     saida = {
         "gerado_em_arquivo": {
