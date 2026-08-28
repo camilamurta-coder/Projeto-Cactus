@@ -301,7 +301,10 @@ def agregar_gamificacao(alunos: list[dict], municipios_jornada: list[str]) -> di
             r["sem_inscritos"] = True
             lista_municipios.append(r)
 
+    # decrescente por engajamento; empates (inclusive 0/sem inscritos) ficam
+    # em ordem alfabetica entre si
     lista_municipios.sort(key=lambda r: norm(r["municipio"]))
+    lista_municipios.sort(key=lambda r: r["pct_engajados"], reverse=True)
 
     geral = resumo(alunos)
     geral["municipios_com_inscritos"] = sum(1 for r in lista_municipios if r["total_alunos"] > 0)

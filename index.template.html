@@ -145,6 +145,9 @@
   .kv-row .v.good { color: var(--status-good); }
 
   footer { color: var(--text-muted); font-size: 0.75rem; margin-top: 40px; border-top: 1px solid var(--gridline); padding-top: 14px; }
+  .footer-links { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 10px; }
+  .footer-links a { font-size: 0.82rem; color: var(--series-1); text-decoration: none; font-weight: 600; }
+  .footer-links a:hover { text-decoration: underline; }
 
   .theme-toggle { font-size: 0.75rem; color: var(--text-secondary);
                   background: var(--surface-1); border: 1px solid var(--border); border-radius: 999px; padding: 5px 12px; cursor: pointer; }
@@ -230,7 +233,7 @@
 
     <section id="sec-gamificacao">
       <h2>Engajamento por cidade</h2>
-      <p class="desc">% de estudantes com pontuação &gt; 0 em cada cidade, em ordem alfabética — inclui cidades ainda sem nenhum estudante inscrito.</p>
+      <p class="desc">% de estudantes com pontuação &gt; 0 em cada cidade, da maior para a menor — inclui cidades ainda sem nenhum estudante inscrito.</p>
       <div class="card">
         <div id="gamif-bars"></div>
       </div>
@@ -276,11 +279,24 @@
     <div class="placeholder-card">Aba <strong>Comunicação</strong> — em breve.</div>
   </div>
 
-  <footer id="rodape"></footer>
+  <footer>
+    <div class="footer-links" id="footer-links"></div>
+    <div id="rodape"></div>
+  </footer>
 </div>
 
 <script type="application/json" id="dashboard-data">__DASHBOARD_DATA__</script>
 <script>
+// ------------------------------------------------------------------ //
+// Links do rodape para o ambiente da trilha - preencher com as URLs
+// reais (deixe "" para nao mostrar o link daquele perfil)
+// ------------------------------------------------------------------ //
+const LINKS_TRILHA = [
+  { label: 'Ambiente do Estudante', url: '' },
+  { label: 'Ambiente do Professor', url: '' },
+  { label: 'Ambiente do Admin', url: '' },
+];
+
 const DATA = JSON.parse(document.getElementById('dashboard-data').textContent);
 
 const fmtPct = (v) => (v == null ? "—" : (v * 100).toLocaleString('pt-BR', {maximumFractionDigits: 1}) + "%");
@@ -655,7 +671,7 @@ const CARTEIRAS = {
 // ---------- engajamento por cidade (lista) ----------
 (function () {
   const host = document.getElementById('gamif-bars');
-  const rows = DATA.gamificacao.por_municipio; // ja vem em ordem alfabetica do build_data.py
+  const rows = DATA.gamificacao.por_municipio; // ja vem ordenado (maior engajamento primeiro) do build_data.py
   const max = Math.max(...rows.map(r => r.pct_engajados), 0.01);
   rows.forEach(r => {
     const row = el('div', 'rank-bar-row');
@@ -692,6 +708,18 @@ const CARTEIRAS = {
 
 document.getElementById('rodape').textContent =
   'Painel gerado localmente a partir da planilha de gestão e do export de gamificação. Para atualizar, gere um novo export e peça a regeneração do painel.';
+
+// ---------- links do rodape (ambiente da trilha) ----------
+(function () {
+  const host = document.getElementById('footer-links');
+  LINKS_TRILHA.filter(l => l.url).forEach(l => {
+    const a = el('a', '', l.label);
+    a.href = l.url;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    host.appendChild(a);
+  });
+})();
 
 // ---------- theme toggle ----------
 (function () {
