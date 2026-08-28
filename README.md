@@ -5,9 +5,12 @@ municipal), publicado como página estática via GitHub Pages.
 
 ## Como funciona
 
-- `2026_Acompanhamento_JornadaOBMEP.xlsx` (abas Painel / Checklist / Acesso) e
-  um export de gamificação (`gamificacao.csv`) são processados por
-  `build_data.py`.
+- A planilha de gestão (abas Painel / Checklist / Acesso) é buscada **direto
+  do Google Sheets** a cada execução (precisa estar compartilhada como
+  "Qualquer pessoa com o link — Leitor"). O link/ID fica em `GOOGLE_SHEET_ID`
+  no topo de `build_data.py`.
+- Um export de gamificação (`gamificacao.csv`) — esse continua sendo por
+  arquivo mesmo, exportado manualmente do LMS.
 - `build_data.py` gera:
   - `data.json` — dados agregados (público, vai para o site). **Não contém
     nome de aluno**, apenas números por turma/município.
@@ -19,17 +22,21 @@ municipal), publicado como página estática via GitHub Pages.
 
 ## Para atualizar o painel com novos dados
 
-1. Salve a nova planilha e o novo CSV de gamificação (ex: na pasta Downloads).
-2. Rode:
+1. Edite a planilha de gestão direto no Google Sheets normalmente — não
+   precisa exportar nem baixar nada.
+2. Salve o novo CSV de gamificação (ex: na pasta Downloads).
+3. Rode:
 
    ```bash
-   python build_data.py "caminho\da\planilha.xlsx" "caminho\do\gamificacao.csv"
+   python build_data.py
    ```
 
-   Sem argumentos, o script usa os últimos caminhos de `Downloads` configurados
-   no topo do arquivo (`XLSX_PADRAO` / `CSV_PADRAO`).
-3. Confira o resultado abrindo `index.html` no navegador.
-4. Envie as mudanças pro GitHub (`git add`, `git commit`, `git push`) — a
+   (sem argumentos — a planilha vem do Google Sheets e o CSV usa o último
+   caminho configurado em `CSV_PADRAO`, no topo do arquivo). Para usar um
+   arquivo de planilha local em vez do Google Sheets, passe o caminho como
+   primeiro argumento: `python build_data.py "caminho\planilha.xlsx" "caminho\gamificacao.csv"`.
+4. Confira o resultado abrindo `index.html` no navegador.
+5. Envie as mudanças pro GitHub (`git add`, `git commit`, `git push`) — a
    página publicada atualiza sozinha em 1-2 minutos.
 
 ## Acesso

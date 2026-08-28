@@ -1,16 +1,16 @@
 {
   "gerado_em_arquivo": {
-    "planilha": "2026_Acompanhamento_JornadaOBMEP (1).xlsx",
+    "planilha": "Google Sheets (planilha de gestao)",
     "csv_gamificacao": "gamificacao (3).csv"
   },
   "painel": {
     "titulo": "Jornada rumo à medalha — quadro de acompanhamento",
     "subtitulo": "Semana 1 do lançamento da trilha · OBMEP 2026, 2ª fase · rede municipal, N1 e N2 · 19 municípios",
     "datas_chave": {
-      "hoje": "2026-08-27",
+      "hoje": "2026-08-28",
       "divulgacao_locais": "2026-08-28",
       "prova_data": "2026-10-17",
-      "dias_corridos": 51
+      "dias_corridos": 50
     },
     "checklist_progresso": [
       {
@@ -39,14 +39,14 @@
         "entregaveis": 4,
         "concluidos": 0,
         "pct_concluido": 0.0,
-        "atrasados": 0
+        "atrasados": 2
       },
       {
         "bloco": "D. 1º acesso",
         "entregaveis": 6,
         "concluidos": 0,
         "pct_concluido": 0.0,
-        "atrasados": 0
+        "atrasados": 1
       },
       {
         "bloco": "E. Fechamento",
@@ -60,7 +60,7 @@
         "entregaveis": 30,
         "concluidos": 13,
         "pct_concluido": 0.4333333333,
-        "atrasados": 4
+        "atrasados": 7
       }
     ],
     "acessos_geral": {
@@ -349,7 +349,7 @@
       "status": "Em andamento",
       "data_conclusao": null,
       "observacoes": "Fazer enquete com lista de cidades presentes no grupo",
-      "atrasado": false
+      "atrasado": true
     },
     {
       "id": 19,
@@ -361,7 +361,7 @@
       "status": "Em andamento",
       "data_conclusao": null,
       "observacoes": null,
-      "atrasado": false
+      "atrasado": true
     },
     {
       "id": 20,
@@ -409,7 +409,7 @@
       "status": "Não iniciado",
       "data_conclusao": null,
       "observacoes": null,
-      "atrasado": false
+      "atrasado": true
     },
     {
       "id": 24,

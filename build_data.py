@@ -27,12 +27,33 @@ import unicodedata
 from pathlib import Path
 
 import openpyxl
+import requests
 
-XLSX_PADRAO = r"C:\Users\Camila\Downloads\2026_Acompanhamento_JornadaOBMEP (1).xlsx"
+# planilha de gestao: por padrao busca direto do Google Sheets (precisa
+# estar compartilhada como "Qualquer pessoa com o link - Leitor"). Pode
+# passar um caminho de arquivo local no lugar, veja main().
+GOOGLE_SHEET_ID = "1f2X3vCxcBAcR9cQTlIRxhXITVnS3xlwHBpyo9qlxrxQ"
+XLSX_PADRAO = f"https://docs.google.com/spreadsheets/d/{GOOGLE_SHEET_ID}/export?format=xlsx"
 CSV_PADRAO = r"C:\Users\Camila\Downloads\gamificacao (3).csv"
 
 AQUI = Path(__file__).parent
 INTERNO = AQUI / "interno"
+CACHE_PLANILHA = AQUI / ".cache_planilha_gestao.xlsx"
+
+
+def resolver_planilha(origem: str) -> Path:
+    """Se `origem` for uma URL, baixa para um arquivo local em cache e devolve o caminho."""
+    if origem.startswith("http://") or origem.startswith("https://"):
+        r = requests.get(origem, timeout=60)
+        r.raise_for_status()
+        if b"accounts.google.com" in r.content[:2000] or r.headers.get("content-type", "").startswith("text/html"):
+            raise RuntimeError(
+                "Nao foi possivel baixar a planilha do Google Sheets - parece que ela "
+                "nao esta compartilhada como 'Qualquer pessoa com o link - Leitor'."
+            )
+        CACHE_PLANILHA.write_bytes(r.content)
+        return CACHE_PLANILHA
+    return Path(origem)
 
 
 def norm(s) -> str:
@@ -322,9 +343,14 @@ def agregar_gamificacao(alunos: list[dict], municipios_jornada: list[str]) -> di
 # --------------------------------------------------------------------------- #
 
 def main() -> int:
-    caminho_xlsx = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(XLSX_PADRAO)
+    origem_xlsx = sys.argv[1] if len(sys.argv) > 1 else XLSX_PADRAO
     caminho_csv = Path(sys.argv[2]) if len(sys.argv) > 2 else Path(CSV_PADRAO)
 
+    try:
+        caminho_xlsx = resolver_planilha(origem_xlsx)
+    except (requests.RequestException, RuntimeError) as e:
+        print(f"! erro baixando a planilha: {e}")
+        return 1
     if not caminho_xlsx.exists():
         print(f"! planilha nao encontrada: {caminho_xlsx}")
         return 1
@@ -345,7 +371,7 @@ def main() -> int:
 
     saida = {
         "gerado_em_arquivo": {
-            "planilha": caminho_xlsx.name,
+            "planilha": "Google Sheets (planilha de gestao)" if origem_xlsx.startswith("http") else caminho_xlsx.name,
             "csv_gamificacao": caminho_csv.name,
         },
         "painel": painel,
