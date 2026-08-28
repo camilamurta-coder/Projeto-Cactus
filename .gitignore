@@ -1,0 +1,7 @@
+cache/
+run.log
+__pycache__/
+*.pyc
+
+# dados com nome de aluno - uso interno, nunca publicar
+interno/
