@@ -661,7 +661,7 @@ const CARTEIRAS = {
       fill.style.width = `${Math.min(pct * 100, 100)}%`;
       track.appendChild(fill);
       card.appendChild(track);
-      card.appendChild(el('div', 'foot', `<span>${fmtPct(pct)} da meta</span>`));
+      card.appendChild(el('div', 'foot', `<span>${fmtPct(pct)}</span>`));
     } else if (hint) {
       card.appendChild(el('div', 'hint', hint));
     }
