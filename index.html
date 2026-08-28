@@ -138,6 +138,13 @@
   .notes { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.6; }
   .notes li { margin-bottom: 4px; }
 
+  .kv-row { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; border-bottom: 1px solid var(--gridline); font-size: 0.85rem; }
+  .kv-row:last-child { border-bottom: none; }
+  .kv-row .k { color: var(--text-secondary); }
+  .kv-row .v { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .kv-row .v.critical { color: var(--status-critical); }
+  .kv-row .v.good { color: var(--status-good); }
+
   footer { color: var(--text-muted); font-size: 0.75rem; margin-top: 40px; border-top: 1px solid var(--gridline); padding-top: 14px; }
 
   .theme-toggle { font-size: 0.75rem; color: var(--text-secondary);
@@ -200,10 +207,28 @@
       <div class="card" id="checklist-bars"></div>
     </section>
 
+    <section id="sec-acessos-meta">
+      <h2>Acessos e meta geral do projeto</h2>
+      <p class="desc">Números consolidados da aba Painel da planilha de gestão.</p>
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+        <div class="card">
+          <h2 style="font-size:0.9rem;margin-bottom:10px;">Acessos</h2>
+          <div id="kv-acessos"></div>
+        </div>
+        <div class="card">
+          <h2 style="font-size:0.9rem;margin-bottom:10px;">Meta geral do projeto</h2>
+          <div id="kv-meta-geral"></div>
+        </div>
+      </div>
+    </section>
+
     <section id="sec-consultores">
       <h2>Acesso por consultor</h2>
       <p class="desc">Acesso registrado em relação à meta de cada consultor. Verde a partir de 100% da meta, vermelho abaixo de 70%.</p>
-      <div class="card" id="consultores-bars"></div>
+      <div class="card" id="consultores-bars" style="margin-bottom:16px;"></div>
+      <div class="card table-scroll">
+        <table id="tbl-consultores"></table>
+      </div>
     </section>
 
     <section id="sec-municipios">
@@ -428,6 +453,40 @@ document.getElementById('gerado').textContent =
   });
 })();
 
+// ---------- acessos + meta geral (kv cards) ----------
+(function () {
+  function renderKV(hostId, rows) {
+    const host = document.getElementById(hostId);
+    rows.forEach(([label, value, cls]) => {
+      const row = el('div', 'kv-row');
+      row.appendChild(el('div', 'k', label));
+      row.appendChild(el('div', `v${cls ? ' ' + cls : ''}`, value));
+      host.appendChild(row);
+    });
+  }
+  const ag = DATA.painel.acessos_geral;
+  const mg = DATA.painel.meta_geral;
+  renderKV('kv-acessos', [
+    ['Meta de acessos (% dos estudantes na trilha)', fmtPct(ag.meta_pct)],
+    ['Estudantes N1+N2 na trilha', fmtNum(ag.estudantes_n1n2)],
+    ['Acesso registrado', fmtNum(ag.acesso_registrado)],
+    ['% de acesso alcançado', fmtPct(ag.pct_alcancado)],
+    ['Municípios com prioridade Alta', fmtNum(ag.municipios_prioridade_alta)],
+    ['Municípios sem consultor definido', fmtNum(ag.municipios_sem_consultor)],
+    ['Escolas municipais na trilha', fmtNum(ag.escolas_municipais)],
+    ['Municípios com base ainda a auditar', fmtNum(ag.municipios_base_auditar)],
+  ]);
+  renderKV('kv-meta-geral', [
+    ['Municípios na Jornada', fmtNum(mg.municipios_jornada)],
+    ['META: municípios com ao menos 1 medalhista', fmtNum(mg.meta_municipios_medalhista)],
+    ['Municípios com a meta atingida', fmtNum(mg.municipios_meta_atingida)],
+    ['Cobertura da meta', fmtPct(mg.municipios_jornada ? mg.municipios_meta_atingida / mg.municipios_jornada : 0)],
+    ['Medalhistas: meta somada', fmtNum(mg.medalhistas_meta_somada)],
+    ['Medalhistas Fase 2: realizado', fmtNum(mg.medalhistas_f2_realizado)],
+    ['Medalhistas Fase 1 (linha de base)', fmtNum(mg.medalhistas_f1_base)],
+  ]);
+})();
+
 // ---------- checklist bars ----------
 (function () {
   const host = document.getElementById('checklist-bars');
@@ -487,6 +546,43 @@ document.getElementById('gerado').textContent =
     `<span><span class="sw" style="background:var(--status-critical)"></span>&lt; 70%</span>` +
     `<span>▏ traço = meta (100%)</span>`);
   host.appendChild(legend);
+
+  // tabela completa (todas as colunas da aba Painel, inclusive Total e
+  // "Sem consultor definido", para bater 1:1 com a planilha)
+  const cols = [
+    { key: 'consultor', label: 'Consultor' },
+    { key: 'municipios', label: 'Municípios (meta 19/19)' },
+    { key: 'estudantes_n1n2', label: 'Estudantes N1+N2' },
+    { key: 'meta_acesso', label: 'Meta de acesso' },
+    { key: 'acesso_registrado', label: 'Acesso registrado' },
+    { key: 'atingimento_pct', label: 'Atingimento de acesso' },
+    { key: 'municipios_com_medalhista', label: 'Municípios com medalhista' },
+    { key: 'municipios_sem_medalhista_f1', label: 'Municípios sem medalhista F1' },
+  ];
+  const table = document.getElementById('tbl-consultores');
+  const thead = el('thead');
+  const trh = el('tr');
+  cols.forEach(c => trh.appendChild(el('th', '', c.label)));
+  thead.appendChild(trh);
+  table.appendChild(thead);
+  const tbody = el('tbody');
+  DATA.painel.consultores.forEach(c => {
+    const destaque = c.consultor === 'Total';
+    const tr = el('tr');
+    cols.forEach(col => {
+      let texto;
+      if (col.key === 'consultor') texto = destaque ? `<strong>${c.consultor}</strong>` : c.consultor;
+      else if (col.key === 'meta_acesso') texto = fmtNum(Math.round(c.meta_acesso));
+      else if (col.key === 'atingimento_pct') {
+        const cor = (!destaque && c.municipios > 0 && c.atingimento_pct < 0.7) ? 'var(--status-critical)' : 'inherit';
+        texto = `<span style="color:${cor};font-weight:${destaque ? 600 : 400}">${fmtPct(c.atingimento_pct)}</span>`;
+      } else texto = fmtNum(c[col.key]);
+      const td = el('td', col.key === 'consultor' ? '' : 'num', texto);
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
 })();
 
 // ---------- municipios table ----------
